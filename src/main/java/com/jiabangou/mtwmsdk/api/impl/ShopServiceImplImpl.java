@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class ShopServiceImpl extends MtWmBaseService implements ShopService {
+public class ShopServiceImplImpl extends BaseServiceImpl implements ShopService {
 
     private final static String POI_SAVE = "/poi/save";
     private final static String POI_GETIDS = "/poi/getids";
@@ -32,8 +32,8 @@ public class ShopServiceImpl extends MtWmBaseService implements ShopService {
     private final static String POITAG_LIST = "/poiTag/list";
     private final static String POI_SHIPPINGTIME_UPDATE = "/poi/shippingtime/update";
 
-    public ShopServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient,
-                           HttpHost httpProxy, boolean isTest) {
+    public ShopServiceImplImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient,
+                               HttpHost httpProxy, boolean isTest) {
         super(mtWmConfigStorage, httpClient, httpProxy, isTest);
     }
 

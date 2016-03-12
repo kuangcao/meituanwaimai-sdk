@@ -9,7 +9,6 @@ import com.jiabangou.mtwmsdk.exception.MtWmError;
 import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.collections.ArrayStack;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
@@ -23,18 +22,19 @@ import org.apache.http.message.BasicNameValuePair;
 import java.io.IOException;
 import java.util.*;
 
-public class MtWmBaseService {
+public class BaseServiceImpl {
 
     public static final String API_URL = "http://waimaiopen.meituan.com/api/v1";
     public static final String TEST_API_URL = "http://test.waimaiopen.meituan.com/api/v1";
     public static final String UTF_8 = "UTF-8";
+    public static final String DATA = "data";
 
     protected MtWmConfigStorage mtWmConfigStorage;
     protected HttpHost httpProxy;
     protected CloseableHttpClient httpClient;
     protected boolean isTest;
 
-    public MtWmBaseService(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient,
+    public BaseServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient,
                            HttpHost httpProxy, boolean isTest) {
         this.mtWmConfigStorage = mtWmConfigStorage;
         this.httpClient = httpClient;
