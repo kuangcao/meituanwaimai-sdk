@@ -48,4 +48,40 @@ public interface FoodService {
      */
     void save(Food food) throws MtWmErrorException;
 
+    /**
+     * 批量创建/更新菜品
+     * 菜品信息以json格式请求，详细参数请参见创建/更新菜品Api参数定义
+     *
+     * 说明：
+     * 批量更新的菜品会和原有菜品进行比对：
+     * 如果某个菜品原来没有，就会新增此菜品；
+     * 如果原来有，就会更新此菜品；
+     * 如果原来有的菜品不在此次更新的数据中，就会删除原来的菜品。
+     *
+     * http://developer.waimai.meituan.com/doc/show#4.7
+     * @param appPoiCode
+     * @param foods
+     * @throws MtWmErrorException
+     */
+    void batchSave(String appPoiCode, List<Food> foods) throws MtWmErrorException;
+
+    /**
+     * 删除菜品
+     * http://developer.waimai.meituan.com/doc/show#4.5
+     * @param appPoiCode APP方门店id
+     * @param appFoodCode APP方菜品ID, 最大长度128 不同门店可以重复，同一门店内不能重复
+     * @throws MtWmErrorException
+     */
+    void delete(String appPoiCode, String appFoodCode) throws MtWmErrorException;
+
+    /**
+     * 查询门店菜品列表
+     * http://developer.waimai.meituan.com/doc/show#4.6
+     * @param appPoiCode
+     * @return
+     * @throws MtWmErrorException
+     */
+    List<Food> gets(String appPoiCode) throws MtWmErrorException;
+
+
 }

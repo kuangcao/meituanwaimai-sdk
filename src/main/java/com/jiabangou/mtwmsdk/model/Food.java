@@ -122,6 +122,14 @@ public class Food {
         this.picture = picture;
     }
 
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
     @Override
     public String toString() {
         return "Food{" +

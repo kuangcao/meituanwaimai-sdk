@@ -1,5 +1,7 @@
 package com.jiabangou.mtwmsdk.api.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.jiabangou.mtwmsdk.api.FoodService;
 import com.jiabangou.mtwmsdk.api.MtWmConfigStorage;
 import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
@@ -9,8 +11,8 @@ import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜品类API
@@ -22,8 +24,8 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
     private static final String FOODCAT_DELETE = "/foodCat/delete";
     private static final String FOODCAT_LIST = "/foodCat/list";
     private static final String FOOD_SAVE = "/food/save";
-
-
+    private static final String FOOD_DELETE = "/food/delete";
+    private static final String FOOD_LIST = "/food/list";
 
     public FoodServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient, HttpHost httpProxy, boolean isTest) {
         super(mtWmConfigStorage, httpClient, httpProxy, isTest);
@@ -50,6 +52,25 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
         doPost(getBaseApiUrl() + FOOD_SAVE, food);
     }
 
-    public
+    public void batchSave(String appPoiCode, List<Food> foods) throws MtWmErrorException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("app_poi_code", appPoiCode);
+        params.put("food_data", JSONArray.toJSONString(foods));
+        doPost(getBaseApiUrl() + FOOD_DELETE, params);
+    }
+
+    public void delete(String appPoiCode, String appFoodCode) throws MtWmErrorException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("app_poi_code", appPoiCode);
+        params.put("app_food_code", appFoodCode);
+        doPost(getBaseApiUrl() + FOOD_DELETE, params);
+    }
+
+    public List<Food> gets(String appPoiCode) throws MtWmErrorException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("app_poi_code", appPoiCode);
+        JSONObject jsonObject = doPost(getBaseApiUrl() + FOOD_LIST, params);
+        return getList(jsonObject, DATA, Food.class);
+    }
 
 }
