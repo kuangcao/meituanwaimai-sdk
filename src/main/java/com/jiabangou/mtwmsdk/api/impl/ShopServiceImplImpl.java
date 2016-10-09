@@ -1,6 +1,7 @@
 package com.jiabangou.mtwmsdk.api.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jiabangou.mtwmsdk.api.LogListener;
 import com.jiabangou.mtwmsdk.api.MtWmConfigStorage;
 import com.jiabangou.mtwmsdk.api.ShopService;
 import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
@@ -13,8 +14,8 @@ import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 public class ShopServiceImplImpl extends BaseServiceImpl implements ShopService {
 
@@ -33,26 +34,26 @@ public class ShopServiceImplImpl extends BaseServiceImpl implements ShopService 
     private final static String POI_SHIPPINGTIME_UPDATE = "/poi/shippingtime/update";
 
     public ShopServiceImplImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient,
-                               HttpHost httpProxy, boolean isTest) {
-        super(mtWmConfigStorage, httpClient, httpProxy, isTest);
+                               HttpHost httpProxy, LogListener listener, boolean isTest) {
+        super(mtWmConfigStorage, httpClient, httpProxy, listener, isTest);
     }
 
     @Override
     public void save(Shop shop) throws MtWmErrorException {
-        doPost(getBaseApiUrl() + POI_SAVE, shop);
+        doPost(POI_SAVE, shop);
     }
 
     @Override
-    public List<Long> getIds() throws MtWmErrorException {
-        JSONObject jsonObject = doGet(getBaseApiUrl() + POI_GETIDS);
-        return getList(jsonObject, "data", Long.class);
+    public List<String> getIds() throws MtWmErrorException {
+        JSONObject jsonObject = doGet(POI_GETIDS);
+        return getList(jsonObject, "data", String.class);
     }
 
     @Override
     public List<Shop> gets(List<Long> appPoiCodes) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_codes", StringUtils.join(appPoiCodes, ","));
-        JSONObject jsonObject = doGet(getBaseApiUrl() + POI_MGET, params);
+        JSONObject jsonObject = doGet(POI_MGET, params);
         return getList(jsonObject, "data", Shop.class);
     }
 
@@ -60,14 +61,14 @@ public class ShopServiceImplImpl extends BaseServiceImpl implements ShopService 
     public void open(String id) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", id);
-        doPost(getBaseApiUrl() + POI_OPEN, params);
+        doPost(POI_OPEN, params);
     }
 
     @Override
     public void close(String id) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", id);
-        doPost(getBaseApiUrl() + POI_CLOSE, params);
+        doPost(POI_CLOSE, params);
     }
 
     @Override
@@ -75,19 +76,19 @@ public class ShopServiceImplImpl extends BaseServiceImpl implements ShopService 
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", id);
         params.put("reason", reason);
-        doPost(getBaseApiUrl() + POI_OFFLINE, params);
+        doPost(POI_OFFLINE, params);
     }
 
     @Override
     public void online(String id) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", id);
-        doPost(getBaseApiUrl() + POI_ONLINE, params);
+        doPost(POI_ONLINE, params);
     }
 
     @Override
     public void saveQualify(Qualify qualify) throws MtWmErrorException {
-        doPost(getBaseApiUrl() + POI_QUALIFY_SAVE, qualify);
+        doPost(POI_QUALIFY_SAVE, qualify);
     }
 
     @Override
@@ -95,12 +96,12 @@ public class ShopServiceImplImpl extends BaseServiceImpl implements ShopService 
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_codes", StringUtils.join(appPoiCodes, ","));
         params.put("send_time", String.valueOf(sendTime));
-        doPost(getBaseApiUrl() + POI_SENDTIME_SAVE, params);
+        doPost(POI_SENDTIME_SAVE, params);
     }
 
     @Override
     public void saveAdditional(Additional additional) throws MtWmErrorException {
-        doPost(getBaseApiUrl() + POI_ADDITIONAL_SAVE, additional);
+        doPost(POI_ADDITIONAL_SAVE, additional);
     }
 
     @Override
@@ -108,12 +109,12 @@ public class ShopServiceImplImpl extends BaseServiceImpl implements ShopService 
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", appPoiCode);
         params.put("promotion_info", promotion);
-        doPost(getBaseApiUrl() + POI_UPDATEPROMOTEINFO, params);
+        doPost(POI_UPDATEPROMOTEINFO, params);
     }
 
     @Override
     public List<ShopTag> getShopTags() throws MtWmErrorException {
-        JSONObject jsonObject = doGet(getBaseApiUrl() + POITAG_LIST);
+        JSONObject jsonObject = doGet(POITAG_LIST);
         return getList(jsonObject, "data", ShopTag.class);
     }
 
@@ -122,7 +123,7 @@ public class ShopServiceImplImpl extends BaseServiceImpl implements ShopService 
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", appPoiCode);
         params.put("shipping_time", shippingTime);
-        doPost(getBaseApiUrl() + POI_SHIPPINGTIME_UPDATE, params);
+        doPost(POI_SHIPPINGTIME_UPDATE, params);
     }
 
 }

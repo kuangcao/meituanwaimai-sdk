@@ -2,6 +2,7 @@ package com.jiabangou.mtwmsdk.api.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.jiabangou.mtwmsdk.api.LogListener;
 import com.jiabangou.mtwmsdk.api.MtWmConfigStorage;
 import com.jiabangou.mtwmsdk.api.ShippingService;
 import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
@@ -23,23 +24,22 @@ public class ShippingServiceImpl extends BaseServiceImpl implements ShippingServ
     private static final String SHIPPING_LIST = "/shipping/list";
     private static final String SHIPPING_BATCHSAVE = "/shipping/batchsave";
 
-
-    public ShippingServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient, HttpHost httpProxy, boolean isTest) {
-        super(mtWmConfigStorage, httpClient, httpProxy, isTest);
+    public ShippingServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient, HttpHost httpProxy,
+                               LogListener listener, boolean isTest) {
+        super(mtWmConfigStorage, httpClient, httpProxy, listener, isTest);
     }
 
     @Override
     public void save(String appPoiCode, Shipping shipping) throws MtWmErrorException {
         JSONObject jsonObject = (JSONObject)JSON.toJSON(shipping);
-        jsonObject.put("app_poi_code", appPoiCode);
-        doPost(getBaseApiUrl() + SHIPPING_SAVE, jsonObject);
+        doPost(SHIPPING_SAVE, jsonObject);
     }
 
     @Override
     public List<Shipping> getsByAppPoiCode(String appPoiCode) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", appPoiCode);
-        List<Shipping> shippings = getList(doGet(getBaseApiUrl() + SHIPPING_LIST, params), DATA, Shipping.class);
+        List<Shipping> shippings = getList(doGet(SHIPPING_LIST, params), DATA, Shipping.class);
         return shippings;
     }
 
@@ -48,7 +48,7 @@ public class ShippingServiceImpl extends BaseServiceImpl implements ShippingServ
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", appPoiCode);
         params.put("shipping_data", JSON.toJSON(shippings).toString());
-        doPost(getBaseApiUrl() + SHIPPING_BATCHSAVE, params);
+        doPost(SHIPPING_BATCHSAVE, params);
     }
 
 }

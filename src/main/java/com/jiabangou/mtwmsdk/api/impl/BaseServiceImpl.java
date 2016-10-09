@@ -4,14 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.TypeUtils;
+import com.jiabangou.mtwmsdk.api.LogListener;
 import com.jiabangou.mtwmsdk.api.MtWmConfigStorage;
 import com.jiabangou.mtwmsdk.exception.MtWmError;
 import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
-import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.EntityBuilder;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -28,18 +29,27 @@ public class BaseServiceImpl {
     public static final String TEST_API_URL = "http://test.waimaiopen.meituan.com/api/v1";
     public static final String UTF_8 = "UTF-8";
     public static final String DATA = "data";
-
+    public static final String HTTP_METHOD_GET = "GET";
+    public static final String HTTP_METHOD_POST = "POST";
     protected MtWmConfigStorage mtWmConfigStorage;
     protected HttpHost httpProxy;
     protected CloseableHttpClient httpClient;
+    protected LogListener logListener;
     protected boolean isTest;
 
     public BaseServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient,
-                           HttpHost httpProxy, boolean isTest) {
+                           HttpHost httpProxy, LogListener logListener,  boolean isTest) {
         this.mtWmConfigStorage = mtWmConfigStorage;
         this.httpClient = httpClient;
         this.httpProxy = httpProxy;
+        this.logListener = logListener;
         this.isTest = isTest;
+    }
+
+    private void logging(String cmd, String method, boolean isSuccess, String request, String response) {
+        if (this.logListener != null) {
+            this.logListener.requestEvent(cmd, method, isSuccess, request, response);
+        }
     }
 
     protected String getBaseApiUrl() {
@@ -54,6 +64,9 @@ public class BaseServiceImpl {
         stringBuilder.append("?");
         for (int i = 0; i < list.size(); i++) {
             Object value = signMap.get(list.get(i));
+            if(value instanceof byte[]){
+                continue;
+            }
             if (value != null) {
                 stringBuilder.append(list.get(i)).append("=").append(value.toString());
                 if (i < list.size() - 1) {
@@ -71,12 +84,7 @@ public class BaseServiceImpl {
 
     protected JSONObject doGet(String url, Object params) throws MtWmErrorException {
         try {
-            List<NameValuePair> nameValuePairs = getNameValuePairs(url, params);
-
-            HttpGet httpGet = new HttpGet(url + "?" + URLEncodedUtils.format(nameValuePairs, UTF_8));
-            setRequestConfig(httpGet);
-
-            return getResponseJsonObject(httpGet);
+            return getResponseJsonObject(HTTP_METHOD_GET, url, params);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -88,34 +96,93 @@ public class BaseServiceImpl {
 
     protected JSONObject doPost(String url, Object params) throws MtWmErrorException {
         try {
-            List<NameValuePair> nameValuePairs = getNameValuePairs(url, params);
-
-            HttpPost httpPost = new HttpPost(url);
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, UTF_8));
-
-            setRequestConfig(httpPost);
-            return getResponseJsonObject(httpPost);
+            return getResponseJsonObject(HTTP_METHOD_POST, url, params);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private JSONObject getResponseJsonObject(HttpUriRequest httpUriRequest) throws IOException, MtWmErrorException {
+    protected JSONObject doPost(String url, Object params, byte[] fileData) throws MtWmErrorException {
+        try {
+            return getResponseJsonObject(HTTP_METHOD_POST, url, params, fileData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private JSONObject getResponseJsonObject(String httpMethod, String url, Object params, byte[] fileData) throws IOException, MtWmErrorException {
+
+        String fullUrl = getBaseApiUrl() + url;
+
+        List<NameValuePair> nameValuePairs = getNameValuePairs(fullUrl, params);
+        HttpPost httpPost = new HttpPost(fullUrl + "?" + URLEncodedUtils.format(nameValuePairs, UTF_8));
+
+        EntityBuilder entityBuilder = EntityBuilder.create();
+        entityBuilder.setParameters(nameValuePairs);
+        entityBuilder.setBinary(fileData);
+        httpPost.setEntity(entityBuilder.build());
+
+
+        CloseableHttpResponse response = this.httpClient.execute(httpPost);
+        String resultContent = new BasicResponseHandler().handleResponse(response);
+        JSONObject jsonObject = JSON.parseObject(resultContent);
+        MtWmError error = MtWmError.fromJson(jsonObject);
+        if (error != null) {
+            logging(url, httpMethod, false,  httpPost.getURI() + "\nBody:" + JSON.toJSONString(params), resultContent);
+            throw new MtWmErrorException(error.getErrorCode(), error.getErrorMsg());
+        }
+        logging(url, httpMethod, true,  httpPost.getURI() + "\nBody:" + JSON.toJSONString(params), resultContent);
+        return jsonObject;
+    }
+
+    private JSONObject getResponseJsonObject(String httpMethod, String url, Object params) throws IOException, MtWmErrorException {
+
+        HttpUriRequest httpUriRequest = null;
+        String fullUrl = getBaseApiUrl() + url;
+        if (HTTP_METHOD_GET.equals(httpMethod)) {
+            List<NameValuePair> nameValuePairs = getNameValuePairs(fullUrl, params);
+            HttpGet httpGet = new HttpGet(fullUrl + "?" + URLEncodedUtils.format(nameValuePairs, UTF_8));
+            setRequestConfig(httpGet);
+            httpUriRequest = httpGet;
+        } else if (HTTP_METHOD_POST.equals(httpMethod)){
+            List<NameValuePair> nameValuePairs = getNameValuePairs(fullUrl, params);
+            HttpPost httpPost = new HttpPost(fullUrl);
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, UTF_8));
+            setRequestConfig(httpPost);
+            httpUriRequest = httpPost;
+        }
+
         CloseableHttpResponse response = this.httpClient.execute(httpUriRequest);
         String resultContent = new BasicResponseHandler().handleResponse(response);
         JSONObject jsonObject = JSON.parseObject(resultContent);
         MtWmError error = MtWmError.fromJson(jsonObject);
         if (error != null) {
+            logging(url, httpMethod, false,  httpUriRequest.getURI() + "\nBody:" + JSON.toJSONString(params), resultContent);
             throw new MtWmErrorException(error.getErrorCode(), error.getErrorMsg());
         }
+        logging(url, httpMethod, true,  httpUriRequest.getURI() + "\nBody:" + JSON.toJSONString(params), resultContent);
         return jsonObject;
     }
 
+    protected Map<String, String> getParamsMap(Object obj) {
+
+        JSONObject jsonObject = (JSONObject)JSONObject.toJSON(obj);
+        final Map<String, String> params = new HashMap<>();
+        jsonObject.entrySet().stream()
+                .filter(entry->entry.getValue() != null)
+                .forEach(entry->
+                        params.put(entry.getKey(), TypeUtils.castToString(entry.getValue()))
+                );
+
+        return params;
+    }
+
     private List<NameValuePair> getNameValuePairs(String url, Object params) {
-        BeanMap beanMap = params != null ? new BeanMap(params) : new BeanMap();
+
+        Map<String, String> beanMap = params != null ? getParamsMap(params) : new HashMap<>();
         int timestamp = (int)System.currentTimeMillis() / 1000;
         beanMap.put("app_id", mtWmConfigStorage.getAppId());
-        beanMap.put("timestamp", timestamp);
+        beanMap.put("timestamp", String .valueOf(timestamp));
         beanMap.put("sig", createApiSignature(url, beanMap, timestamp));
 
         List<NameValuePair> nameValuePairs = new ArrayList<>();
@@ -138,6 +205,11 @@ public class BaseServiceImpl {
             list.add(TypeUtils.castToJavaBean(obj, clazz));
         }
         return list;
+    }
+
+    protected <T> T get(JSONObject jsonObject, String key, Class<T> clazz) {
+        JSONObject obj = jsonObject.getJSONObject(key);
+        return TypeUtils.castToJavaBean(obj, clazz);
     }
 
 }

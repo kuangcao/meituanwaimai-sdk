@@ -27,7 +27,7 @@ public interface ShopService {
      * @return
      * @throws MtWmErrorException
      */
-    List<Long> getIds() throws MtWmErrorException;
+    List<String> getIds() throws MtWmErrorException;
 
     /**
      * 批量获取门店详细信息
