@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 /**
  * Created by freeway on 16/7/14.
  *
- * Service
  */
 public class ServiceTest {
 
