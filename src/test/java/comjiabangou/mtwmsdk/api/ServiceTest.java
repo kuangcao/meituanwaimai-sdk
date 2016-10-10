@@ -17,8 +17,10 @@ public class ServiceTest {
     public static void BeforeClass() {
         MtWmInMemoryConfigStorage configStorage = new MtWmInMemoryConfigStorage();
         mtWmClient = new MtWmClientImpl();
+        configStorage.setAppId("409");
+        configStorage.setSecret("9f9d5562d44dedef5b25a780a08bc0ca");
         mtWmClient.setConfigStorage(configStorage);
-        mtWmClient.setIsTest(false);
+        mtWmClient.setIsTest(true);
     }
 
 }

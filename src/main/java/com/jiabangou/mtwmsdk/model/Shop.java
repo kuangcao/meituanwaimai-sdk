@@ -5,7 +5,7 @@ public class Shop {
     private String app_poi_code; //	string	是	12233	APP方门店ID
     private String name; //	string	是	丽华快餐	门店名字
     private String address; //	string	是	北苑路北站K酷时代广场4层	门店地址
-    private String latitude; //	float	是	38.693203	门店纬度 （美团使用的是高德坐标系，也就是火星坐标系，如果是百度坐标系需要转换）(门店坐标不需要乘以一百万)
+    private float latitude; //	float	是	38.693203	门店纬度 （美团使用的是高德坐标系，也就是火星坐标系，如果是百度坐标系需要转换）(门店坐标不需要乘以一百万)
     private float longitude; //	float	是	115.281708	门店经度 （美团使用的是高德坐标系，也就是火星坐标系，如果是百度坐标系需要转换）(门店坐标不需要乘以一百万)
     private String pic_url; //	string	否	http://p1.meituan.net/crm/__37375183__1582979.jpg	门店图片地址（默认图片为：http://p1.meituan.net/crm/__37375183__1582979.jpg）图片比例1:1，需要为Jpg/JPEG格式，大于256x256
     private String pic_url_large; //	string	否	http://p1.meituan.net/crm/__37375183__1582979.jpg	门店图片地址（默认图片为：http://p1.meituan.net/crm/__37375183__1582979.jpg ）图片比例4:3，需要为Jpg/JPEG格式，大于400x300
@@ -49,11 +49,11 @@ public class Shop {
         this.address = address;
     }
 
-    public String getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
