@@ -13,7 +13,7 @@ public interface ImageService {
      *
      * @throws MtWmErrorException
      */
-    String uploadImage(String appPoiCode, String imgName, Byte[] imgData) throws MtWmErrorException;
+    String uploadImage(String appPoiCode, String imgName, byte[] imgData) throws MtWmErrorException;
 
     /**
      * 图片上传
