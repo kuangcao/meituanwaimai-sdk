@@ -41,9 +41,8 @@ public class ImageServiceImpl extends BaseServiceImpl implements ImageService {
         byte[] imageData = getImageData(imgUrl);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("app_poi_code", appPoiCode);
-        params.put("img_data", imageData);
         params.put("img_name", imgName);
-        return doPost(IMAGE_UPLOAD, params, imageData).getString(DATA);
+        return doPost(IMAGE_UPLOAD, params, imgName, imageData).getString(DATA);
     }
 
     public byte[] getImageData(String destUrl) {
