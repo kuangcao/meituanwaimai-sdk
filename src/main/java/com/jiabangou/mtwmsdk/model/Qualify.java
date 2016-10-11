@@ -1,6 +1,8 @@
 package com.jiabangou.mtwmsdk.model;
 
-public class Qualify {
+import java.io.Serializable;
+
+public class Qualify implements Serializable {
 
     private String app_poi_code; //	string	是	12233	APP方门店id
     private Integer type; //	int	是	1	资质证照的类型（1：营业执照；2：餐饮服务许可证；3：健康证；4：法人身份证）

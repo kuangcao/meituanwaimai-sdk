@@ -3,6 +3,7 @@ package com.jiabangou.mtwmsdk.api;
 import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
 import com.jiabangou.mtwmsdk.model.Food;
 import com.jiabangou.mtwmsdk.model.FoodCategory;
+import com.jiabangou.mtwmsdk.model.FoodCategoryDetail;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface FoodService {
      * @return
      * @throws MtWmErrorException
      */
-    List<FoodCategory> list(String appPoiCode) throws MtWmErrorException;
+    List<FoodCategoryDetail> list(String appPoiCode) throws MtWmErrorException;
 
     /**
      * 创建/更新菜品

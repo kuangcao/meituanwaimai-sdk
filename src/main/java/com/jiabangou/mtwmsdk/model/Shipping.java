@@ -1,10 +1,12 @@
 package com.jiabangou.mtwmsdk.model;
 
+import java.io.Serializable;
+
 /**
  * 门店配送范围
  * Created by freeway on 16/3/12.
  */
-public class Shipping {
+public class Shipping implements Serializable {
 
     //	string	是	123	APP方提供的配送范围id，如一个门店没有配送范围ID，且每个门店只有一个配送范围，可以填1
     private String app_shipping_code;

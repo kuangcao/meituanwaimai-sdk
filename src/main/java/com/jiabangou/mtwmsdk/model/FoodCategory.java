@@ -1,9 +1,11 @@
 package com.jiabangou.mtwmsdk.model;
 
+import java.io.Serializable;
+
 /**
  * Created by freeway on 16/3/12.
  */
-public class FoodCategory {
+public class FoodCategory implements Serializable {
     private String app_poi_code; //	string	是	25381	APP方门店id
     private String category_name_origin; //	string	更新时必须，新建时无须填写	美团定制饭1	原始的菜品分类名称
     private String category_name; //	string	是	美团定制饭2	新建的菜品分类名称

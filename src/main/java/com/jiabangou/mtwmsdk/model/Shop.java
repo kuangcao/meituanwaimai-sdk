@@ -2,7 +2,7 @@ package com.jiabangou.mtwmsdk.model;
 
 import java.io.Serializable;
 
-public class Shop implements Serializable{
+public class Shop implements Serializable {
 
     private String app_poi_code; //	string	是	12233	APP方门店ID
     private String name; //	string	是	丽华快餐	门店名字

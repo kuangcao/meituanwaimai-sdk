@@ -2,7 +2,9 @@ package comjiabangou.mtwmsdk.api.impl;
 
 import com.jiabangou.mtwmsdk.api.ShopService;
 import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
+import com.jiabangou.mtwmsdk.model.Additional;
 import com.jiabangou.mtwmsdk.model.Shop;
+import com.jiabangou.mtwmsdk.model.ShopTag;
 import comjiabangou.mtwmsdk.api.ServiceTest;
 import org.junit.Test;
 
@@ -31,8 +33,8 @@ public class ShopServiceImplTest extends ServiceTest {
         shop.setShipping_time("7:00-9:00,11:30-23:00");
         shop.setInvoice_min_price(1.0);
         shop.setName("美团-望京-test店");
-        shop.setLongitude(116.467441f);
-        shop.setLatitude(39.994899f);
+        shop.setLongitude(116.467441);
+        shop.setLatitude(39.994899);
         shop.setTime_select(1);
         shop.setInvoice_support(1);
         shop.setInvoice_description("满3块开发票");
@@ -64,6 +66,37 @@ public class ShopServiceImplTest extends ServiceTest {
         shopService.close("test_poi_01");
     }
 
+    @Test
+    public void saveSendtime() throws MtWmErrorException {
+        List<String> pois = new ArrayList<>();
+        pois.add("test_poi_01");
+        shopService.saveSendtime(pois, 60);
+    }
 
+    @Test
+    public void saveAdditional() throws MtWmErrorException {
+        Additional additional = new Additional();
+        additional.setApp_poi_code("test_poi_01");
+        additional.setApp_poi_email("wangleimvp110@126.com");
+        additional.setApp_brand_code("qjd");
+        additional.setApp_org_id("11213");
+        shopService.saveAdditional(additional);
+    }
+
+    @Test
+    public void updatePromote() throws MtWmErrorException {
+        shopService.updatePromote("test_poi_01", "哈哈哈，测试公告信息");
+    }
+
+    @Test
+    public void getShopTags() throws MtWmErrorException {
+        List<ShopTag> shopTags = shopService.getShopTags();
+        System.out.println(shopTags);
+    }
+
+    @Test
+    public void updateShippingTime() throws MtWmErrorException {
+        shopService.updateShippingTime("test_poi_01", "5:00-23:00");
+    }
 
 }

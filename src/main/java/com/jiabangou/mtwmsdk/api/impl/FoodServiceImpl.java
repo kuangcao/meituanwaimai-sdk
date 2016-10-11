@@ -8,6 +8,7 @@ import com.jiabangou.mtwmsdk.api.MtWmConfigStorage;
 import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
 import com.jiabangou.mtwmsdk.model.Food;
 import com.jiabangou.mtwmsdk.model.FoodCategory;
+import com.jiabangou.mtwmsdk.model.FoodCategoryDetail;
 import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
@@ -44,10 +45,10 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
         doPost(FOODCAT_DELETE, params);
     }
 
-    public List<FoodCategory> list(String appPoiCode) throws MtWmErrorException {
+    public List<FoodCategoryDetail> list(String appPoiCode) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", appPoiCode);
-        return getList(doGet(FOODCAT_LIST, params), DATA, FoodCategory.class);
+        return getList(doGet(FOODCAT_LIST, params), DATA, FoodCategoryDetail.class);
     }
 
     public void save(Food food) throws MtWmErrorException {
