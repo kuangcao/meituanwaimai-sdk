@@ -109,14 +109,15 @@ public class BaseServiceImpl {
 
         HttpUriRequest httpUriRequest = null;
         String fullUrl = getBaseApiUrl() + url;
+        List<NameValuePair> sysNameValuePairs = getSysNameValuePairs(fullUrl, params);
+        List<NameValuePair> nameValuePairs = getNameValuePairs(params);
         if (HTTP_METHOD_GET.equals(httpMethod)) {
-            List<NameValuePair> nameValuePairs = getNameValuePairs(fullUrl, params);
-            HttpGet httpGet = new HttpGet(fullUrl + "?" + URLEncodedUtils.format(nameValuePairs, UTF_8));
+            sysNameValuePairs.addAll(nameValuePairs);
+            HttpGet httpGet = new HttpGet(fullUrl + "?" + URLEncodedUtils.format(sysNameValuePairs, UTF_8));
             setRequestConfig(httpGet);
             httpUriRequest = httpGet;
         } else if (HTTP_METHOD_POST.equals(httpMethod)) {
-            List<NameValuePair> nameValuePairs = getNameValuePairs(fullUrl, params);
-            HttpPost httpPost = new HttpPost(fullUrl);
+            HttpPost httpPost = new HttpPost(fullUrl + "?" + URLEncodedUtils.format(sysNameValuePairs, UTF_8));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, UTF_8));
             setRequestConfig(httpPost);
             httpUriRequest = httpPost;
@@ -146,12 +147,13 @@ public class BaseServiceImpl {
 
         String fullUrl = getBaseApiUrl() + url;
 
-        List<NameValuePair> nameValuePairs = getNameValuePairs(fullUrl, params);
-        HttpPost httpPost = new HttpPost(fullUrl + "?" + URLEncodedUtils.format(nameValuePairs, UTF_8));
+        List<NameValuePair> sysNameValuePairs = getSysNameValuePairs(fullUrl, params);
+        List<NameValuePair> nameValuePairs = getNameValuePairs(params);
+        HttpPost httpPost = new HttpPost(fullUrl + "?" + URLEncodedUtils.format(sysNameValuePairs, UTF_8));
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         for (NameValuePair p : nameValuePairs) {
-            builder.addTextBody(p.getName(), p.getValue(), ContentType.TEXT_PLAIN.withCharset("UTF-8"));
+            builder.addTextBody(p.getName(), p.getValue(), ContentType.TEXT_PLAIN.withCharset(UTF_8));
         }
 
         builder.addPart("img_data", new ByteArrayBody(fileData, imageName));
@@ -173,13 +175,18 @@ public class BaseServiceImpl {
         return jsonObject;
     }
 
-    private List<NameValuePair> getNameValuePairs(String url, Object params) {
-
+    private List<NameValuePair> getSysNameValuePairs(String url, Object params){
         Map<String, String> beanMap = params != null ? getParamsMap(params) : new HashMap<>();
-        int timestamp = (int) System.currentTimeMillis() / 1000;
+        int timestamp =(int) (System.currentTimeMillis() / 1000);
         beanMap.put("app_id", mtWmConfigStorage.getAppId());
         beanMap.put("timestamp", String.valueOf(timestamp));
         beanMap.put("sig", createApiSignature(url, beanMap, timestamp));
+        return getNameValuePairs(beanMap);
+    }
+
+    private List<NameValuePair> getNameValuePairs(Object params) {
+
+        Map<String, String> beanMap = params != null ? getParamsMap(params) : new HashMap<>();
 
         List<NameValuePair> nameValuePairs = new ArrayList<>();
         for (Map.Entry entry : beanMap.entrySet()) {

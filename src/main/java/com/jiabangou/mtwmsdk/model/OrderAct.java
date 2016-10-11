@@ -7,26 +7,26 @@ import java.io.Serializable;
  */
 public class OrderAct implements Serializable {
 
-    private String id;
-    private String type;
+    private long id;
+    private int type;
     private String remark;
-    private String start_time;
-    private String end_time;
+    private long start_time;
+    private long end_time;
     private PoiPolicy poi_policy;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -38,19 +38,19 @@ public class OrderAct implements Serializable {
         this.remark = remark;
     }
 
-    public String getStart_time() {
+    public long getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(String start_time) {
+    public void setStart_time(long start_time) {
         this.start_time = start_time;
     }
 
-    public String getEnd_time() {
+    public long getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(String end_time) {
+    public void setEnd_time(long end_time) {
         this.end_time = end_time;
     }
 
@@ -65,28 +65,28 @@ public class OrderAct implements Serializable {
     @Override
     public String toString() {
         return "OrderAct{" +
-                "id='" + id + '\'' +
-                ", type='" + type + '\'' +
+                "id=" + id +
+                ", type=" + type +
                 ", remark='" + remark + '\'' +
-                ", start_time='" + start_time + '\'' +
-                ", end_time='" + end_time + '\'' +
+                ", start_time=" + start_time +
+                ", end_time=" + end_time +
                 ", poi_policy=" + poi_policy +
                 '}';
     }
 
     public class PoiPolicy implements Serializable {
 
-        private String full_price;
+        private double full_price;
         private String gift_name;
-        private String gift_price;
-        private String mt_charge;
-        private String poi_charge;
+        private double gift_price;
+        private double mt_charge;
+        private double poi_charge;
 
-        public String getFull_price() {
+        public double getFull_price() {
             return full_price;
         }
 
-        public void setFull_price(String full_price) {
+        public void setFull_price(double full_price) {
             this.full_price = full_price;
         }
 
@@ -98,38 +98,38 @@ public class OrderAct implements Serializable {
             this.gift_name = gift_name;
         }
 
-        public String getGift_price() {
+        public double getGift_price() {
             return gift_price;
         }
 
-        public void setGift_price(String gift_price) {
+        public void setGift_price(double gift_price) {
             this.gift_price = gift_price;
         }
 
-        public String getMt_charge() {
+        public double getMt_charge() {
             return mt_charge;
         }
 
-        public void setMt_charge(String mt_charge) {
+        public void setMt_charge(double mt_charge) {
             this.mt_charge = mt_charge;
         }
 
-        public String getPoi_charge() {
+        public double getPoi_charge() {
             return poi_charge;
         }
 
-        public void setPoi_charge(String poi_charge) {
+        public void setPoi_charge(double poi_charge) {
             this.poi_charge = poi_charge;
         }
 
         @Override
         public String toString() {
-            return "poiPolicy{" +
-                    "full_price='" + full_price + '\'' +
+            return "PoiPolicy{" +
+                    "full_price=" + full_price +
                     ", gift_name='" + gift_name + '\'' +
-                    ", gift_price='" + gift_price + '\'' +
-                    ", mt_charge='" + mt_charge + '\'' +
-                    ", poi_charge='" + poi_charge + '\'' +
+                    ", gift_price=" + gift_price +
+                    ", mt_charge=" + mt_charge +
+                    ", poi_charge=" + poi_charge +
                     '}';
         }
     }
