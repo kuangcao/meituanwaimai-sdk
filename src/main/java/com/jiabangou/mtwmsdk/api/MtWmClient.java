@@ -40,7 +40,7 @@ public interface MtWmClient {
      *
      * @return
      */
-    FoodService getDishService();
+    FoodService getFoodService();
 
     /**
      * 获取订单服务

@@ -162,7 +162,7 @@ public class MtWmClientImpl implements MtWmClient {
     }
 
     @Override
-    public FoodService getDishService() {
+    public FoodService getFoodService() {
         if (foodService == null) {
             foodService = new FoodServiceImpl(configStorage, httpClient, httpProxy, logListener, isTest);
         }
