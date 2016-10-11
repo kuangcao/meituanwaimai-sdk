@@ -13,7 +13,14 @@ public class ImageServiceImplTest extends ServiceTest {
     @Test
     public void uploadImage() throws MtWmErrorException {
         ImageService imageService = mtWmClient.getImageService();
-        String code = imageService.uploadImage("test_poi_01", "37375183__1582979.jpg", "http://pic54.nipic.com/file/20141204/19902974_135858226000_2.jpg");
+        String code = imageService.uploadImage("test_poi_01", "qsP_960x720.jpg", "http://pic54.nipic.com/file/20141204/19902974_135858226000_2.jpg");
         System.out.println(code);
+    }
+
+    @Test
+    public void Image(){
+        String image = "http://pic54.nipic.com/file/20141204/19902974_135858226000_2.jpg";
+        String imageName = image.substring(image.lastIndexOf("/") + 1);
+        System.out.println(imageName);
     }
 }

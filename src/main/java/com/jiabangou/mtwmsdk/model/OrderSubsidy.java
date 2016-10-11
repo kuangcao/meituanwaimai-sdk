@@ -8,32 +8,32 @@ import java.util.List;
  */
 public class OrderSubsidy implements Serializable {
 
-    private long order_id;
-    private double order_total;
-    private double subsidy;
+    private Long order_id;
+    private Double order_total;
+    private Double subsidy;
     private List<Extra> extras;
 
-    public long getOrder_id() {
+    public Long getOrder_id() {
         return order_id;
     }
 
-    public void setOrder_id(long order_id) {
+    public void setOrder_id(Long order_id) {
         this.order_id = order_id;
     }
 
-    public double getOrder_total() {
+    public Double getOrder_total() {
         return order_total;
     }
 
-    public void setOrder_total(double order_total) {
+    public void setOrder_total(Double order_total) {
         this.order_total = order_total;
     }
 
-    public double getSubsidy() {
+    public Double getSubsidy() {
         return subsidy;
     }
 
-    public void setSubsidy(double subsidy) {
+    public void setSubsidy(Double subsidy) {
         this.subsidy = subsidy;
     }
 
@@ -56,14 +56,14 @@ public class OrderSubsidy implements Serializable {
     }
 
     public class Extra implements Serializable {
-        private double reduce_fee;
+        private Double reduce_fee;
         private String remark;
 
-        public double getReduce_fee() {
+        public Double getReduce_fee() {
             return reduce_fee;
         }
 
-        public void setReduce_fee(double reduce_fee) {
+        public void setReduce_fee(Double reduce_fee) {
             this.reduce_fee = reduce_fee;
         }
 

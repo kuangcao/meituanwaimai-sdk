@@ -7,26 +7,26 @@ import java.io.Serializable;
  */
 public class OrderAct implements Serializable {
 
-    private long id;
-    private int type;
+    private Long id;
+    private Integer type;
     private String remark;
-    private long start_time;
-    private long end_time;
+    private Long start_time;
+    private Long end_time;
     private PoiPolicy poi_policy;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -38,19 +38,19 @@ public class OrderAct implements Serializable {
         this.remark = remark;
     }
 
-    public long getStart_time() {
+    public Long getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(long start_time) {
+    public void setStart_time(Long start_time) {
         this.start_time = start_time;
     }
 
-    public long getEnd_time() {
+    public Long getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(long end_time) {
+    public void setEnd_time(Long end_time) {
         this.end_time = end_time;
     }
 
@@ -76,17 +76,17 @@ public class OrderAct implements Serializable {
 
     public class PoiPolicy implements Serializable {
 
-        private double full_price;
+        private Double full_price;
         private String gift_name;
-        private double gift_price;
-        private double mt_charge;
-        private double poi_charge;
+        private Double gift_price;
+        private Double mt_charge;
+        private Double poi_charge;
 
-        public double getFull_price() {
+        public Double getFull_price() {
             return full_price;
         }
 
-        public void setFull_price(double full_price) {
+        public void setFull_price(Double full_price) {
             this.full_price = full_price;
         }
 
@@ -98,27 +98,27 @@ public class OrderAct implements Serializable {
             this.gift_name = gift_name;
         }
 
-        public double getGift_price() {
+        public Double getGift_price() {
             return gift_price;
         }
 
-        public void setGift_price(double gift_price) {
+        public void setGift_price(Double gift_price) {
             this.gift_price = gift_price;
         }
 
-        public double getMt_charge() {
+        public Double getMt_charge() {
             return mt_charge;
         }
 
-        public void setMt_charge(double mt_charge) {
+        public void setMt_charge(Double mt_charge) {
             this.mt_charge = mt_charge;
         }
 
-        public double getPoi_charge() {
+        public Double getPoi_charge() {
             return poi_charge;
         }
 
-        public void setPoi_charge(double poi_charge) {
+        public void setPoi_charge(Double poi_charge) {
             this.poi_charge = poi_charge;
         }
 

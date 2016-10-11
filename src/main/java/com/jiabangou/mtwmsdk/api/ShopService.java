@@ -36,7 +36,7 @@ public interface ShopService {
      * @return
      * @throws MtWmErrorException
      */
-    List<Shop> gets(List<Long> appPoiCodes) throws MtWmErrorException;
+    List<Shop> gets(List<String> appPoiCodes) throws MtWmErrorException;
 
     /**
      * 门店设置为营业状态（开发者可以不使用这个API，因为也可以通过poi/save接口更新open_level字段值来实现）

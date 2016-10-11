@@ -181,7 +181,12 @@ public class BaseServiceImpl {
         beanMap.put("app_id", mtWmConfigStorage.getAppId());
         beanMap.put("timestamp", String.valueOf(timestamp));
         beanMap.put("sig", createApiSignature(url, beanMap, timestamp));
-        return getNameValuePairs(beanMap);
+
+        List<NameValuePair> nameValuePairs = new ArrayList<>();
+        nameValuePairs.add(new BasicNameValuePair("app_id", beanMap.get("app_id")));
+        nameValuePairs.add(new BasicNameValuePair("timestamp", beanMap.get("timestamp")));
+        nameValuePairs.add(new BasicNameValuePair("sig", beanMap.get("sig")));
+        return nameValuePairs;
     }
 
     private List<NameValuePair> getNameValuePairs(Object params) {

@@ -3,7 +3,7 @@ package com.jiabangou.mtwmsdk.model;
 public class Qualify {
 
     private String app_poi_code; //	string	是	12233	APP方门店id
-    private int type; //	int	是	1	资质证照的类型（1：营业执照；2：餐饮服务许可证；3：健康证；4：法人身份证）
+    private Integer type; //	int	是	1	资质证照的类型（1：营业执照；2：餐饮服务许可证；3：健康证；4：法人身份证）
     private String qualification_url; //	string	是	http://p1.meituan.net/crm/__37375183__1582979.jpg	资质图片地址（门店资质只能上传一张，必须为jpg格式，图片大小不能超过10M，分辨率需要在1024*768以上，1600*1200以下，推荐1600*1200，否则审核会不通过）
     private String valid_date;//	string	否	2015-01-01	资质证照的有效期截止日，必须符合yyyy-MM-dd的格式
     private String address;//	string	否	天安门	经营地址
@@ -17,11 +17,11 @@ public class Qualify {
         this.app_poi_code = app_poi_code;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

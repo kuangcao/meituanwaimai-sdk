@@ -50,7 +50,7 @@ public class ShopServiceImplImpl extends BaseServiceImpl implements ShopService 
     }
 
     @Override
-    public List<Shop> gets(List<Long> appPoiCodes) throws MtWmErrorException {
+    public List<Shop> gets(List<String> appPoiCodes) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_codes", StringUtils.join(appPoiCodes, ","));
         JSONObject jsonObject = doGet(POI_MGET, params);
