@@ -38,7 +38,7 @@ public class OrderDetail implements Serializable {
 
     private Integer status; //订单状态 订单当前状态code，详情请参考13.1节
 
-    private String city_id; //城市ID(目前暂时用不到此信息)
+    private Long city_id; //城市ID(目前暂时用不到此信息)
 
     private Integer has_invoiced; //是否开发票
 
@@ -48,13 +48,13 @@ public class OrderDetail implements Serializable {
 
     private Long utime; //更新时间
 
-    private String delivery_time; //用户预计送达时间，“立即送达”时为0
+    private Long delivery_time; //用户预计送达时间，“立即送达”时为0
 
     private Integer is_third_shipping; //是否是第三方配送平台配送（0：否；1：是） private String pay_type; //支付类型（1：货到付款；2：在线支付）
 
-    private Float latitude; //实际送餐地址纬度
+    private Double latitude; //实际送餐地址纬度
 
-    private Float Longitude; //实际送餐地址经度
+    private Double longitude; //实际送餐地址经度
 
     private List<Detail> detail; //菜品详情
 
@@ -210,11 +210,11 @@ public class OrderDetail implements Serializable {
         this.status = status;
     }
 
-    public String getCity_id() {
+    public Long getCity_id() {
         return city_id;
     }
 
-    public void setCity_id(String city_id) {
+    public void setCity_id(Long city_id) {
         this.city_id = city_id;
     }
 
@@ -250,11 +250,11 @@ public class OrderDetail implements Serializable {
         this.utime = utime;
     }
 
-    public String getDelivery_time() {
+    public Long getDelivery_time() {
         return delivery_time;
     }
 
-    public void setDelivery_time(String delivery_time) {
+    public void setDelivery_time(Long delivery_time) {
         this.delivery_time = delivery_time;
     }
 
@@ -266,20 +266,20 @@ public class OrderDetail implements Serializable {
         this.is_third_shipping = is_third_shipping;
     }
 
-    public Float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public Float getLongitude() {
-        return Longitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setLongitude(Float longitude) {
-        Longitude = longitude;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public List<Detail> getDetail() {
@@ -444,7 +444,7 @@ public class OrderDetail implements Serializable {
                 ", delivery_time='" + delivery_time + '\'' +
                 ", is_third_shipping=" + is_third_shipping +
                 ", latitude=" + latitude +
-                ", Longitude=" + Longitude +
+                ", longitude=" + longitude +
                 ", detail=" + detail +
                 ", extras=" + extras +
                 ", order_send_time=" + order_send_time +

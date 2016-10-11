@@ -9,7 +9,7 @@ import java.util.List;
 public class Order implements Serializable {
 
     private Long order_id; //订单ID
-    private String wm_order_id_view; //订单展示ID
+    private Long wm_order_id_view; //订单展示ID
     private String app_poi_code; //APP方商家ID
     private String wm_poi_name; //美团商家名称
     private String wm_poi_address; //美团商家地址
@@ -23,17 +23,17 @@ public class Order implements Serializable {
     private String caution; //忌口或备注
     private String shipper_phone; //送餐员电话
     private Integer status; //订单状态
-    private String city_id; //城市ID（目前暂时用不到此信息）
+    private Long city_id; //城市ID（目前暂时用不到此信息）
     private Integer has_invoiced; //是否开发票
     private String invoice_title; //发票抬头
     private Long ctime; //创建时间
     private Long utime; //更新时间
-    private String delivery_time; //用户预计送达时间，“立即送达”时为0
+    private Long delivery_time; //用户预计送达时间，“立即送达”时为0
     private Integer is_third_shipping; //是否是第三方配送平台配送（0：否；1：是）
     private Integer pay_type; //支付类型（1：货到付款；2：在线支付）
-    private Float latitude; //实际送餐地址纬度
-    private Float Longitude; //实际送餐地址经度
-    private String day_seq; //门店当天的推单流水号，该信息默认不推送，如有需求请联系美团
+    private Double latitude; //实际送餐地址纬度
+    private Double longitude; //实际送餐地址经度
+    private Integer day_seq; //门店当天的推单流水号，该信息默认不推送，如有需求请联系美团
     private Boolean is_favorites; //用户是否收藏此门店（true, false），该信息默认不推送，如有需求可在开发者中心订阅
     private Boolean is_poi_first_order; //用户是否第一次在此门店点餐（true, false），该信息默认不推送，如有需求可在开发者中心订阅
     private Integer dinners_number; //用餐人数，该信息默认不推送，如有需求可在开发者中心订阅
@@ -50,11 +50,11 @@ public class Order implements Serializable {
         this.order_id = order_id;
     }
 
-    public String getWm_order_id_view() {
+    public Long getWm_order_id_view() {
         return wm_order_id_view;
     }
 
-    public void setWm_order_id_view(String wm_order_id_view) {
+    public void setWm_order_id_view(Long wm_order_id_view) {
         this.wm_order_id_view = wm_order_id_view;
     }
 
@@ -162,11 +162,11 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public String getCity_id() {
+    public Long getCity_id() {
         return city_id;
     }
 
-    public void setCity_id(String city_id) {
+    public void setCity_id(Long city_id) {
         this.city_id = city_id;
     }
 
@@ -202,11 +202,11 @@ public class Order implements Serializable {
         this.utime = utime;
     }
 
-    public String getDelivery_time() {
+    public Long getDelivery_time() {
         return delivery_time;
     }
 
-    public void setDelivery_time(String delivery_time) {
+    public void setDelivery_time(Long delivery_time) {
         this.delivery_time = delivery_time;
     }
 
@@ -226,27 +226,27 @@ public class Order implements Serializable {
         this.pay_type = pay_type;
     }
 
-    public Float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public Float getLongitude() {
-        return Longitude;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setLongitude(Float longitude) {
-        Longitude = longitude;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
-    public String getDay_seq() {
+    public Integer getDay_seq() {
         return day_seq;
     }
 
-    public void setDay_seq(String day_seq) {
+    public void setDay_seq(Integer day_seq) {
         this.day_seq = day_seq;
     }
 
@@ -333,7 +333,7 @@ public class Order implements Serializable {
                 ", is_third_shipping=" + is_third_shipping +
                 ", pay_type=" + pay_type +
                 ", latitude=" + latitude +
-                ", Longitude=" + Longitude +
+                ", longitude=" + longitude +
                 ", day_seq='" + day_seq + '\'' +
                 ", is_favorites=" + is_favorites +
                 ", is_poi_first_order=" + is_poi_first_order +
