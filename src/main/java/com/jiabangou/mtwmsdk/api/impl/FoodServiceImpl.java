@@ -1,7 +1,9 @@
 package com.jiabangou.mtwmsdk.api.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.TypeUtils;
 import com.jiabangou.mtwmsdk.api.FoodService;
 import com.jiabangou.mtwmsdk.api.LogListener;
 import com.jiabangou.mtwmsdk.api.MtWmConfigStorage;
@@ -12,6 +14,7 @@ import com.jiabangou.mtwmsdk.model.FoodCategoryDetail;
 import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +29,7 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
     private static final String FOODCAT_DELETE = "/foodCat/delete";
     private static final String FOODCAT_LIST = "/foodCat/list";
     private static final String FOOD_SAVE = "/food/save";
+    private static final String FOOD_INITDATA = "/food/initdata";
     private static final String FOOD_DELETE = "/food/delete";
     private static final String FOOD_LIST = "/food/list";
 
@@ -55,6 +59,11 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
         doPost(FOOD_SAVE, food);
     }
 
+    @Override
+    public void initdata(Food food) throws MtWmErrorException {
+        doPost(FOOD_INITDATA, food);
+    }
+
     public void batchSave(String appPoiCode, List<Food> foods) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", appPoiCode);
@@ -73,7 +82,14 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", appPoiCode);
         JSONObject jsonObject = doPost(FOOD_LIST, params);
-        return getList(jsonObject, DATA, Food.class);
+        JSONArray jsonArray = jsonObject.getJSONArray(DATA);
+        List<Food> list = new ArrayList<Food>();
+        for (Object obj : jsonArray) {
+            JSONObject jsonObjectTemp = (JSONObject) obj;
+            jsonObjectTemp.put("skus", JSON.parseArray(jsonObjectTemp.getString("skus")));
+            list.add(TypeUtils.castToJavaBean(jsonObjectTemp, Food.class));
+        }
+        return list;
     }
 
 }

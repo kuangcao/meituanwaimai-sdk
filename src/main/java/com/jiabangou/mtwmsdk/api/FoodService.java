@@ -50,6 +50,16 @@ public interface FoodService {
     void save(Food food) throws MtWmErrorException;
 
     /**
+     * 创建/更新菜品
+     * 推荐使用批量创建/更新菜品Api，批量更新门店菜品
+     * 注：现对菜品上传接口进行升级，分为两步，第一步为上传图片，第二步为创建/更新菜品，详细内容如下。
+     * （目前接口会兼容原有形式，但新接入时，推荐使用升级后的形式，即分为两步创建/更新菜品）
+     * http://developer.waimai.meituan.com/doc/show#4.4
+     * @throws MtWmErrorException
+     */
+    void initdata(Food food) throws MtWmErrorException;
+
+    /**
      * 批量创建/更新菜品
      * 菜品信息以json格式请求，详细参数请参见创建/更新菜品Api参数定义
      *

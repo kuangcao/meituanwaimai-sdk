@@ -1,6 +1,7 @@
 package com.jiabangou.mtwmsdk.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 菜品数据对象
@@ -27,6 +28,8 @@ public class Food implements Serializable {
     private String picture;
 
     private Integer sequence;
+
+    private List<Sku> skus;
 
     public String getApp_poi_code() {
         return app_poi_code;
@@ -132,6 +135,14 @@ public class Food implements Serializable {
         this.sequence = sequence;
     }
 
+    public List<Sku> getSkus() {
+        return skus;
+    }
+
+    public void setSkus(List<Sku> skus) {
+        this.skus = skus;
+    }
+
     @Override
     public String toString() {
         return "Food{" +
@@ -148,6 +159,7 @@ public class Food implements Serializable {
                 ", is_sold_out=" + is_sold_out +
                 ", picture='" + picture + '\'' +
                 ", sequence=" + sequence +
+                ", skus=" + skus +
                 '}';
     }
 }
