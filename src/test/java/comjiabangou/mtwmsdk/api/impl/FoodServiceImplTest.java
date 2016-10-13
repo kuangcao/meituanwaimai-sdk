@@ -43,8 +43,8 @@ public class FoodServiceImplTest extends ServiceTest {
     public void save() throws MtWmErrorException {
         Food food = new Food();
         food.setApp_poi_code("test_poi_01");
-        food.setApp_food_code("2");
-        food.setName("测试菜品2");
+        food.setApp_food_code("3");
+        food.setName("测试菜品3改");
         food.setDescription("这个是测试菜gai");
         food.setPrice(0.1);
         food.setMin_order_count(1);
@@ -73,16 +73,16 @@ public class FoodServiceImplTest extends ServiceTest {
         sku.setStock(10);
         sku.setAvailable_times(availableTime);
 
-        Sku sku1 = new Sku();
-        sku1.setSku_id("2");
-        sku1.setSpec("测试sku2");
-        sku1.setPrice(0.2);
-        sku1.setStock(10);
-        sku1.setAvailable_times(availableTime);
+//        Sku sku1 = new Sku();
+//        sku1.setSku_id("2");
+//        sku1.setSpec("测试sku2");
+//        sku1.setPrice(0.2);
+//        sku1.setStock(10);
+//        sku1.setAvailable_times(availableTime);
 
         List<Sku> skus = new ArrayList<>();
         skus.add(sku);
-        skus.add(sku1);
+//        skus.add(sku1);
 
         food.setSkus(skus);
 

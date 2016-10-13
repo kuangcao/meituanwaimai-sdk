@@ -4,12 +4,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static java.util.stream.Collectors.toList;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.*;
 
 /**
  * Created by freeway on 16/7/19.
@@ -31,8 +28,16 @@ public class MtWmUtils {
         if (!appId.equals(signParams.get("app_id"))) {
             throw new RuntimeException("app_id is incorrect");
         }
-        List<String> sortParams = signParams.entrySet().stream()
-                .map(entry -> entry.getKey() + "=" + entry.getValue()).sorted().collect(toList());
+
+        List<String> sortParams = new ArrayList<>();
+        for(Map.Entry entry: signParams.entrySet()){
+            try {
+                String sortParam = entry.getKey() + "=" + URLDecoder.decode(String.valueOf(entry.getValue()), "utf-8");
+                sortParams.add(sortParam);
+            } catch (UnsupportedEncodingException e){
+                throw new RuntimeException("data decode incorrect");
+            }
+        }
 
         String signature = DigestUtils.md5Hex(sigPart.getUrl() + "?" + StringUtils.join(sortParams, "&") + secret);
 
