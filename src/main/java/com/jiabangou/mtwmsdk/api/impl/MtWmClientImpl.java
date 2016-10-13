@@ -1,6 +1,8 @@
 package com.jiabangou.mtwmsdk.api.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.TypeUtils;
 import com.jiabangou.mtwmsdk.api.*;
 import com.jiabangou.mtwmsdk.model.Order;
 import com.jiabangou.mtwmsdk.model.ResultMessage;
@@ -86,9 +88,10 @@ public class MtWmClientImpl implements MtWmClient {
 
     @Override
     public ResultMessage pushHandle(String url, Map<String, String> params, String pushAction) {
-        if (this.pushConsumer == null) {
-            return new ResultMessage("pushConsumer does not implement");
-        }
+//        if (this.pushConsumer == null) {
+//            return new ResultMessage("pushConsumer does not implement");
+//        }
+        params = MtWmUtils.urlDecodeParams(params);
         String httpMethod = "";
         try {
             MtWmUtils.sigCheck(url, params, configStorage.getAppId(), configStorage.getSecret());
@@ -98,19 +101,19 @@ public class MtWmClientImpl implements MtWmClient {
         }
         if (PushConsumer.CREATE_ORDER.equals(pushAction)) {
 
-            Order order = JSON.parseObject(JSON.toJSONString(params), Order.class);
+            Order order = getOrder(params);
             this.pushConsumer.createOrder(order);
             httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
 
         } else if (PushConsumer.CONFIRMED_ORDER.equals(pushAction)) {
 
-            Order order = JSON.parseObject(JSON.toJSONString(params), Order.class);
+            Order order = getOrder(params);
             this.pushConsumer.confirmedOrder(order);
             httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
 
         } else if (PushConsumer.COMPLETED_ORDER.equals(pushAction)) {
 
-            Order order = JSON.parseObject(JSON.toJSONString(params), Order.class);
+            Order order = getOrder(params);
             this.pushConsumer.completedOrder(order);
             httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
 
@@ -143,6 +146,15 @@ public class MtWmClientImpl implements MtWmClient {
         }
         logging(pushAction, httpMethod, true, JSON.toJSONString(params), JSON.toJSONString(ResultMessage.buildOk()));
         return ResultMessage.buildOk();
+    }
+
+    private Order getOrder(Map<String, String> params) {
+        JSONObject jsonObjectTemp = JSONObject.parseObject(JSON.toJSONString(params));
+        jsonObjectTemp.put("detail", JSON.parseArray(jsonObjectTemp.getString("detail")));
+        if(jsonObjectTemp.getString("extras") != null && !jsonObjectTemp.getString("extras").equals("")){
+            jsonObjectTemp.put("extras", JSON.parseArray(jsonObjectTemp.getString("extras")));
+        }
+        return TypeUtils.castToJavaBean(jsonObjectTemp, Order.class);
     }
 
     private void logging(String cmd, String method, boolean isSuccess, String request, String response) {

@@ -29,21 +29,35 @@ public class MtWmUtils {
             throw new RuntimeException("app_id is incorrect");
         }
 
-        List<String> sortParams = new ArrayList<>();
-        for(Map.Entry entry: signParams.entrySet()){
-            try {
-                String sortParam = entry.getKey() + "=" + URLDecoder.decode(String.valueOf(entry.getValue()), "utf-8");
-                sortParams.add(sortParam);
-            } catch (UnsupportedEncodingException e){
-                throw new RuntimeException("data decode incorrect");
-            }
-        }
+        List<String> sortParams = getSortParams(signParams);
 
         String signature = DigestUtils.md5Hex(sigPart.getUrl() + "?" + StringUtils.join(sortParams, "&") + secret);
 
         if (!signature.equals(sigPart.getSig())) {
             throw new RuntimeException("sig is incorrect");
         }
+    }
+
+    public static List<String> getSortParams(Map<String, String> signParams) {
+        List<String> params = new ArrayList<>();
+        for(Map.Entry entry: signParams.entrySet()){
+                String param = entry.getKey() + "=" + entry.getValue();
+                params.add(param);
+        }
+        Collections.sort(params);
+        return params;
+    }
+
+    public static Map<String, String> urlDecodeParams(Map<String, String> params) {
+        Map<String, String> paramsTemp = new HashMap<>();
+        for(Map.Entry entry: params.entrySet()){
+            try {
+                paramsTemp.put(String.valueOf(entry.getKey()), URLDecoder.decode(String.valueOf(entry.getValue()), "utf-8"));
+            } catch (UnsupportedEncodingException e){
+                throw new RuntimeException("data decode incorrect");
+            }
+        }
+        return paramsTemp;
     }
 
     private static SigPart getSigPart(String url, Map<String, String> params) {

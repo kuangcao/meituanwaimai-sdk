@@ -54,33 +54,4 @@ public class OrderSubsidy implements Serializable {
                 ", extras=" + extras +
                 '}';
     }
-
-    public class Extra implements Serializable {
-        private Double reduce_fee;
-        private String remark;
-
-        public Double getReduce_fee() {
-            return reduce_fee;
-        }
-
-        public void setReduce_fee(Double reduce_fee) {
-            this.reduce_fee = reduce_fee;
-        }
-
-        public String getRemark() {
-            return remark;
-        }
-
-        public void setRemark(String remark) {
-            this.remark = remark;
-        }
-
-        @Override
-        public String toString() {
-            return "Extra{" +
-                    "reduce_fee=" + reduce_fee +
-                    ", remark='" + remark + '\'' +
-                    '}';
-        }
-    }
 }

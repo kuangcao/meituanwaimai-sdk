@@ -1,6 +1,8 @@
 package com.jiabangou.mtwmsdk.api.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.TypeUtils;
 import com.jiabangou.mtwmsdk.api.LogListener;
 import com.jiabangou.mtwmsdk.api.MtWmConfigStorage;
 import com.jiabangou.mtwmsdk.api.OrderService;
@@ -85,7 +87,8 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
         Map<String, String> params = new HashMap<String, String>();
         params.put("order_id", orderId);
         JSONObject jsonObject = doGet(ORDER_SUBSIDY, params);
-        return get(jsonObject, DATA, OrderSubsidy.class);
+        jsonObject.put("extras", JSON.parseArray(jsonObject.getString("extras")));
+        return TypeUtils.castToJavaBean(jsonObject, OrderSubsidy.class);
     }
 
     @Override
@@ -109,7 +112,9 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
         params.put("order_id", orderId);
         params.put("is_mt_logistics", String.valueOf(isMtLogistics));
         JSONObject jsonObject = doGet(ORDER_GET_ORDER_DETAIL, params);
-        return get(jsonObject, DATA, OrderDetail.class);
+        jsonObject.put("detail", JSON.parseArray(jsonObject.getString("detail")));
+        jsonObject.put("extras", JSON.parseArray(jsonObject.getString("extras")));
+        return TypeUtils.castToJavaBean(jsonObject, OrderDetail.class);
     }
 
     @Override
