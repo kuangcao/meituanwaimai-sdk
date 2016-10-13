@@ -12,6 +12,7 @@ public class MtWmInMemoryConfigStorage implements MtWmConfigStorage {
     protected volatile String http_proxy_username;
     protected volatile String http_proxy_password;
 
+    public MtWmInMemoryConfigStorage() {}
 
     @Override
     public String getAppId() {
