@@ -37,6 +37,10 @@ public class MtWmClientImpl implements MtWmClient {
 
     private Boolean isTest = false;
 
+    public MtWmClientImpl(MtWmConfigStorage configStorage) {
+        this.configStorage = configStorage;
+    }
+
     public void setConfigStorage(MtWmConfigStorage configStorage) {
 
         this.configStorage = configStorage;
