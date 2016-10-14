@@ -50,11 +50,25 @@ public class OrderDetail implements Serializable {
 
     private Long delivery_time; //用户预计送达时间，“立即送达”时为0
 
-    private Integer is_third_shipping; //是否是第三方配送平台配送（0：否；1：是） private String pay_type; //支付类型（1：货到付款；2：在线支付）
+    private Integer is_third_shipping; //是否是第三方配送平台配送（0：否；1：是）
+
+    private String pay_type; //支付类型（1：货到付款；2：在线支付）
 
     private Double latitude; //实际送餐地址纬度
 
     private Double longitude; //实际送餐地址经度
+
+    private Integer day_seq; //门店当天的推单流水号，该信息默认不推送，如有需求请联系美团
+
+    private Boolean is_favorites; //用户是否收藏此门店（true, false），该信息默认不推送，如有需求可在开发者中心订阅
+
+    private Boolean is_poi_first_order; //用户是否第一次在此门店点餐（true, false），该信息默认不推送，如有需求可在开发者中心订阅
+
+    private Integer dinners_number; //用餐人数，该信息默认不推送，如有需求可在开发者中心订阅
+
+    private String logistics_code; //订单配送方式，该信息默认不推送，如有需求可在开发者中心订阅
+
+    private PoiReceiveDetail poi_receive_detail; //商家对账信息，该信息默认不推送，如有需求可在开发者中心订阅
 
     private List<Detail> detail; //菜品详情
 
@@ -266,6 +280,14 @@ public class OrderDetail implements Serializable {
         this.is_third_shipping = is_third_shipping;
     }
 
+    public String getPay_type() {
+        return pay_type;
+    }
+
+    public void setPay_type(String pay_type) {
+        this.pay_type = pay_type;
+    }
+
     public Double getLatitude() {
         return latitude;
     }
@@ -280,6 +302,54 @@ public class OrderDetail implements Serializable {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Integer getDay_seq() {
+        return day_seq;
+    }
+
+    public void setDay_seq(Integer day_seq) {
+        this.day_seq = day_seq;
+    }
+
+    public Boolean getIs_favorites() {
+        return is_favorites;
+    }
+
+    public void setIs_favorites(Boolean is_favorites) {
+        this.is_favorites = is_favorites;
+    }
+
+    public Boolean getIs_poi_first_order() {
+        return is_poi_first_order;
+    }
+
+    public void setIs_poi_first_order(Boolean is_poi_first_order) {
+        this.is_poi_first_order = is_poi_first_order;
+    }
+
+    public Integer getDinners_number() {
+        return dinners_number;
+    }
+
+    public void setDinners_number(Integer dinners_number) {
+        this.dinners_number = dinners_number;
+    }
+
+    public String getLogistics_code() {
+        return logistics_code;
+    }
+
+    public void setLogistics_code(String logistics_code) {
+        this.logistics_code = logistics_code;
+    }
+
+    public PoiReceiveDetail getPoi_receive_detail() {
+        return poi_receive_detail;
+    }
+
+    public void setPoi_receive_detail(PoiReceiveDetail poi_receive_detail) {
+        this.poi_receive_detail = poi_receive_detail;
     }
 
     public List<Detail> getDetail() {
@@ -436,15 +506,22 @@ public class OrderDetail implements Serializable {
                 ", caution='" + caution + '\'' +
                 ", shipper_phone='" + shipper_phone + '\'' +
                 ", status=" + status +
-                ", city_id='" + city_id + '\'' +
+                ", city_id=" + city_id +
                 ", has_invoiced=" + has_invoiced +
                 ", invoice_title='" + invoice_title + '\'' +
                 ", ctime=" + ctime +
                 ", utime=" + utime +
-                ", delivery_time='" + delivery_time + '\'' +
+                ", delivery_time=" + delivery_time +
                 ", is_third_shipping=" + is_third_shipping +
+                ", pay_type='" + pay_type + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
+                ", day_seq=" + day_seq +
+                ", is_favorites=" + is_favorites +
+                ", is_poi_first_order=" + is_poi_first_order +
+                ", dinners_number=" + dinners_number +
+                ", logistics_code='" + logistics_code + '\'' +
+                ", poi_receive_detail=" + poi_receive_detail +
                 ", detail=" + detail +
                 ", extras=" + extras +
                 ", order_send_time=" + order_send_time +
@@ -464,5 +541,4 @@ public class OrderDetail implements Serializable {
                 ", logistics_dispatcher_mobile='" + logistics_dispatcher_mobile + '\'' +
                 '}';
     }
-
 }
