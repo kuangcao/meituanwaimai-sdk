@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.TypeUtils;
 import com.jiabangou.mtwmsdk.api.*;
+import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
 import com.jiabangou.mtwmsdk.model.Order;
+import com.jiabangou.mtwmsdk.model.OrderDetail;
 import com.jiabangou.mtwmsdk.model.ResultMessage;
 import com.jiabangou.mtwmsdk.utils.MtWmUtils;
 import org.apache.commons.lang.StringUtils;
@@ -39,7 +41,8 @@ public class MtWmClientImpl implements MtWmClient {
 
     private Boolean isTest = false;
 
-    public MtWmClientImpl() {}
+    public MtWmClientImpl() {
+    }
 
     public MtWmClientImpl(MtWmConfigStorage configStorage) {
         this.configStorage = configStorage;
@@ -88,9 +91,9 @@ public class MtWmClientImpl implements MtWmClient {
 
     @Override
     public ResultMessage pushHandle(String url, Map<String, String> params, String pushAction) {
-//        if (this.pushConsumer == null) {
-//            return new ResultMessage("pushConsumer does not implement");
-//        }
+        if (this.pushConsumer == null) {
+            return new ResultMessage("pushConsumer does not implement");
+        }
         params = MtWmUtils.urlDecodeParams(params);
         String httpMethod = "";
         try {
@@ -99,61 +102,68 @@ public class MtWmClientImpl implements MtWmClient {
             logging(pushAction, httpMethod, false, JSON.toJSONString(params), e.getMessage());
             return new ResultMessage(e.getMessage());
         }
-        if (PushConsumer.CREATE_ORDER.equals(pushAction)) {
+        try {
+            if (PushConsumer.CREATE_ORDER.equals(pushAction)) {
 
-            Order order = getOrder(params);
-            this.pushConsumer.createOrder(order);
-            httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
+                OrderDetail orderDetail = getOrderDetail(params);
+                this.pushConsumer.createOrder(orderDetail);
+                httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
 
-        } else if (PushConsumer.CONFIRMED_ORDER.equals(pushAction)) {
+            } else if (PushConsumer.CONFIRMED_ORDER.equals(pushAction)) {
 
-            Order order = getOrder(params);
-            this.pushConsumer.confirmedOrder(order);
-            httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
+                OrderDetail orderDetail = getOrderDetail(params);
+                this.pushConsumer.confirmedOrder(orderDetail);
+                httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
 
-        } else if (PushConsumer.COMPLETED_ORDER.equals(pushAction)) {
+            } else if (PushConsumer.COMPLETED_ORDER.equals(pushAction)) {
 
-            Order order = getOrder(params);
-            this.pushConsumer.completedOrder(order);
-            httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
+                OrderDetail orderDetail = getOrderDetail(params);
+                this.pushConsumer.completedOrder(orderDetail);
+                httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
 
-        } else if (PushConsumer.CANCEL_ORDER.equals(pushAction)) {
+            } else if (PushConsumer.CANCEL_ORDER.equals(pushAction)) {
 
-            String orderId = params.get("order_id");
-            String reasonCode = params.get("reason_code");
-            String reason = params.get("reason");
-            this.pushConsumer.cancelOrder(orderId, reasonCode, reason);
-            httpMethod = BaseServiceImpl.HTTP_METHOD_GET;
+                String orderId = params.get("order_id");
+                String reasonCode = params.get("reason_code");
+                String reason = params.get("reason");
+                this.pushConsumer.cancelOrder(orderId, reasonCode, reason);
+                httpMethod = BaseServiceImpl.HTTP_METHOD_GET;
 
-        } else if (PushConsumer.REFUND_ORDER.equals(pushAction)) {
+            } else if (PushConsumer.REFUND_ORDER.equals(pushAction)) {
 
-            String orderId = params.get("order_id");
-            String notifyType = params.get("notify_type");
-            String reason = params.get("reason");
-            this.pushConsumer.refundOrder(orderId, notifyType, reason);
-            httpMethod = BaseServiceImpl.HTTP_METHOD_GET;
+                String orderId = params.get("order_id");
+                String notifyType = params.get("notify_type");
+                String reason = params.get("reason");
+                this.pushConsumer.refundOrder(orderId, notifyType, reason);
+                httpMethod = BaseServiceImpl.HTTP_METHOD_GET;
 
-        } else if (PushConsumer.LOGISTICS_STATUS.equals(pushAction)) {
+            } else if (PushConsumer.LOGISTICS_STATUS.equals(pushAction)) {
 
-            String orderId = params.get("order_id");
-            Short statusCode = Short.valueOf(params.get("logistics_status"));
-            String time = params.get("time");
-            String dispatcherName = params.get("dispatcher_name");
-            String dispatcherMobile = params.get("dispatcher_mobile");
-            this.pushConsumer.deliveryStatus(orderId, statusCode, time, dispatcherName ,dispatcherMobile);
-            httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
+                String orderId = params.get("order_id");
+                Short statusCode = Short.valueOf(params.get("logistics_status"));
+                String time = params.get("time");
+                String dispatcherName = params.get("dispatcher_name");
+                String dispatcherMobile = params.get("dispatcher_mobile");
+                this.pushConsumer.deliveryStatus(orderId, statusCode, time, dispatcherName, dispatcherMobile);
+                httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
 
+            }
+        } catch (MtWmErrorException e) {
+            logging(pushAction, httpMethod, false, JSON.toJSONString(params), e.getMessage());
         }
         logging(pushAction, httpMethod, true, JSON.toJSONString(params), JSON.toJSONString(ResultMessage.buildOk()));
         return ResultMessage.buildOk();
     }
 
+    private OrderDetail getOrderDetail(Map<String, String> params) throws MtWmErrorException {
+            OrderService orderService = this.getOrderService();
+            return orderService.getOrderDetail(params.get("order_id"), Short.valueOf("1"));
+    }
+
     private Order getOrder(Map<String, String> params) {
         JSONObject jsonObjectTemp = JSONObject.parseObject(JSON.toJSONString(params));
         jsonObjectTemp.put("detail", JSON.parseArray(jsonObjectTemp.getString("detail")));
-        if(jsonObjectTemp.getString("extras") != null && !jsonObjectTemp.getString("extras").equals("")){
-            jsonObjectTemp.put("extras", JSON.parseArray(jsonObjectTemp.getString("extras")));
-        }
+        jsonObjectTemp.put("extras", JSON.parseArray(jsonObjectTemp.getString("extras")));
         return TypeUtils.castToJavaBean(jsonObjectTemp, Order.class);
     }
 

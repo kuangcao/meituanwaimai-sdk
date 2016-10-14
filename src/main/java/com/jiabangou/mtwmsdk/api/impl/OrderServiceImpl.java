@@ -86,7 +86,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
     public OrderSubsidy subsidy(String orderId) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("order_id", orderId);
-        JSONObject jsonObject = doGet(ORDER_SUBSIDY, params);
+        JSONObject jsonObject = doGet(ORDER_SUBSIDY, params).getJSONObject(DATA);
         jsonObject.put("extras", JSON.parseArray(jsonObject.getString("extras")));
         return TypeUtils.castToJavaBean(jsonObject, OrderSubsidy.class);
     }
@@ -111,7 +111,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
         Map<String, String> params = new HashMap<String, String>();
         params.put("order_id", orderId);
         params.put("is_mt_logistics", String.valueOf(isMtLogistics));
-        JSONObject jsonObject = doGet(ORDER_GET_ORDER_DETAIL, params);
+        JSONObject jsonObject = doGet(ORDER_GET_ORDER_DETAIL, params).getJSONObject(DATA);
         jsonObject.put("detail", JSON.parseArray(jsonObject.getString("detail")));
         jsonObject.put("extras", JSON.parseArray(jsonObject.getString("extras")));
         return TypeUtils.castToJavaBean(jsonObject, OrderDetail.class);

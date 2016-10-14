@@ -1,6 +1,6 @@
 package com.jiabangou.mtwmsdk.api;
 
-import com.jiabangou.mtwmsdk.model.Order;
+import com.jiabangou.mtwmsdk.model.OrderDetail;
 
 /**
  * 推送处理接口, 需要业务自己实现推送后的处理
@@ -16,11 +16,11 @@ public interface PushConsumer {
     String LOGISTICS_STATUS = "logistics_status";
 
 
-    void createOrder(Order order);
+    void createOrder(OrderDetail orderDetail);
 
-    void confirmedOrder(Order order);
+    void confirmedOrder(OrderDetail orderDetail);
 
-    void completedOrder(Order order);
+    void completedOrder(OrderDetail orderDetail);
 
     void cancelOrder(String orderId, String reasonCode, String reason);
 
