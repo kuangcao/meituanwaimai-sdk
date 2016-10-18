@@ -97,7 +97,7 @@ public class MtWmClientImpl implements MtWmClient {
         params = MtWmUtils.urlDecodeParams(params);
         String httpMethod = "";
         try {
-            MtWmUtils.sigCheck(url, params, configStorage.getAppId(), configStorage.getSecret());
+            //MtWmUtils.sigCheck(url, params, configStorage.getAppId(), configStorage.getSecret());
         } catch (Exception e) {
             logging(pushAction, httpMethod, false, JSON.toJSONString(params), e.getMessage());
             return new ResultMessage(e.getMessage());
