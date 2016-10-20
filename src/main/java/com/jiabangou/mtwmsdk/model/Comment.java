@@ -8,12 +8,12 @@ import java.io.Serializable;
 public class Comment implements Serializable {
 
     private String add_comment;
-    private Long add_comment_time;
-    private String comment_content;
-    private Long comment_id;
-    private Long delivery_comment_score;
-    private Long food_comment_score;
-    private Long order_comment_score;
+    private Long add_comment_time; //评价时间
+    private String comment_content; //评价内容
+    private Long comment_id; //评价id
+    private Long delivery_comment_score; //配送评分
+    private Long food_comment_score; //商品评分
+    private Long order_comment_score; //订单评分
 
     public String getAdd_comment() {
         return add_comment;

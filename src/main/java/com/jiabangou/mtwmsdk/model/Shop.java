@@ -32,8 +32,8 @@ public class Shop implements Serializable {
     private Long settlement_poi_id;
     private Long ctime;
     private Long utime;
-    private Integer pre_book_min_days;
-    private Integer pre_book_max_days;
+    private Integer pre_book_min_days; //预订单最早预定
+    private Integer pre_book_max_days; //预订单最晚预定时间
     private String tag_name;
     private Long city_id;
 
