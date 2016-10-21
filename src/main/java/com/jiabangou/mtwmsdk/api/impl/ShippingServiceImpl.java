@@ -1,7 +1,9 @@
 package com.jiabangou.mtwmsdk.api.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.TypeUtils;
 import com.jiabangou.mtwmsdk.api.LogListener;
 import com.jiabangou.mtwmsdk.api.MtWmConfigStorage;
 import com.jiabangou.mtwmsdk.api.ShippingService;
@@ -10,6 +12,7 @@ import com.jiabangou.mtwmsdk.model.Shipping;
 import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +42,14 @@ public class ShippingServiceImpl extends BaseServiceImpl implements ShippingServ
     public List<Shipping> getsByAppPoiCode(String appPoiCode) throws MtWmErrorException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("app_poi_code", appPoiCode);
-        List<Shipping> shippings = getList(doGet(SHIPPING_LIST, params), DATA, Shipping.class);
-        return shippings;
+        JSONArray jsonArray = doGet(SHIPPING_LIST, params).getJSONArray(DATA);
+        List<Shipping> list = new ArrayList<Shipping>();
+        for (Object obj : jsonArray) {
+            JSONObject jsonObjectTemp = (JSONObject) obj;
+            jsonObjectTemp.put("area", JSON.parseArray(jsonObjectTemp.getString("area")));
+            list.add(TypeUtils.castToJavaBean(jsonObjectTemp, Shipping.class));
+        }
+        return list;
     }
 
     @Override
