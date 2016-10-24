@@ -123,10 +123,7 @@ public class MtWmClientImpl implements MtWmClient {
 
             } else if (PushConsumer.CANCEL_ORDER.equals(pushAction)) {
 
-                String orderId = params.get("order_id");
-                String reasonCode = params.get("reason_code");
-                String reason = params.get("reason");
-                this.pushConsumer.cancelOrder(orderId, reasonCode, reason);
+                this.pushConsumer.cancelOrder(params.get("order_id"), Integer.valueOf(params.get("reason_code")),  params.get("reason"));
                 httpMethod = BaseServiceImpl.HTTP_METHOD_GET;
 
             } else if (PushConsumer.REFUND_ORDER.equals(pushAction)) {
