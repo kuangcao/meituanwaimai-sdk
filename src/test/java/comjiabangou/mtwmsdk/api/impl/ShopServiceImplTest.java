@@ -20,25 +20,23 @@ public class ShopServiceImplTest extends ServiceTest {
 
     @Test
     public void save() throws MtWmErrorException {
-
         Shop shop = new Shop();
-        shop.setIs_online(1);
+        shop.setApp_poi_code("test_poi_02");
+        shop.setName("美团-test店1");
+        shop.setAddress("朝阳区广顺北大街33号福码大厦B座2楼(望京凯德MALL北)");
+        shop.setLongitude(116.467442);
+        shop.setLatitude(39.994898);
+        shop.setPic_url("http://p1.meituan.net/crm/__37375183__1582979.jpg");
         shop.setPhone("010-64736466");
         shop.setStandby_tel("13594011234");
-        shop.setApp_poi_code("7");
         shop.setShipping_fee(0.0);
-        shop.setOpen_level(1);
-        shop.setInvoice_support(1);
-        shop.setAddress("朝阳区广顺北大街33号福码大厦B座2楼(望京凯德MALL北)");
         shop.setShipping_time("7:00-9:00,11:30-23:00");
-        shop.setInvoice_min_price(1.0);
-        shop.setName("美团-望京-test店");
-        shop.setLongitude(116.467441);
-        shop.setLatitude(39.994899);
-        shop.setTime_select(1);
-        shop.setInvoice_support(1);
-        shop.setInvoice_description("满3块开发票");
-
+        shop.setOpen_level(1);
+        shop.setIs_online(1);
+//        shop.setInvoice_support(1);
+//        shop.setInvoice_min_price(1.0);
+//        shop.setInvoice_description("满3块开发票");
+//        shop.setThird_tag_name("北京菜");
         shopService.save(shop);
     }
 

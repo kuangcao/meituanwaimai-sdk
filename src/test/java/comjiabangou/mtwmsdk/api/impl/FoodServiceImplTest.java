@@ -42,9 +42,9 @@ public class FoodServiceImplTest extends ServiceTest {
     @Test
     public void save() throws MtWmErrorException {
         Food food = new Food();
-        food.setApp_poi_code("test_poi_01");
-        food.setApp_food_code("3");
-        food.setName("测试菜品3改");
+        food.setApp_poi_code("test_poi_02");
+        food.setApp_food_code("1");
+        food.setName("你好我是滴减肥代理商空间反垄断");
         food.setDescription("这个是测试菜gai");
         food.setPrice(0.1);
         food.setMin_order_count(1);
@@ -64,7 +64,6 @@ public class FoodServiceImplTest extends ServiceTest {
         availableTime.setFriday("6:00-23:00");
         availableTime.setSaturday("6:00-23:00");
         availableTime.setSunday("6:00-23:00");
-
 
         Sku sku = new Sku();
         sku.setSku_id("1");

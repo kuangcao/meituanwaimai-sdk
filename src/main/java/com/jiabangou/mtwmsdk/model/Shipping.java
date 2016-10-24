@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class Shipping implements Serializable {
 
+    //string	是	25381	APP方门店id
+    private String app_poi_code;
     //	string	是	123	APP方提供的配送范围id，如一个门店没有配送范围ID，且每个门店只有一个配送范围，可以填1
     private String app_shipping_code;
     //	string	是	1	配置范围类型，（1表示多个配送范围由多个多边形组成）只支持多边形
@@ -19,6 +21,14 @@ public class Shipping implements Serializable {
     private Double min_price;
     //	Double	否	5	该配送区域的配送费(建议填写这个字段设定配送费,如果此字段为空,则以门店保存的配送费为准)
     private Double shipping_fee;
+
+    public String getApp_poi_code() {
+        return app_poi_code;
+    }
+
+    public void setApp_poi_code(String app_poi_code) {
+        this.app_poi_code = app_poi_code;
+    }
 
     public String getApp_shipping_code() {
         return app_shipping_code;
@@ -63,7 +73,8 @@ public class Shipping implements Serializable {
     @Override
     public String toString() {
         return "Shipping{" +
-                "app_shipping_code='" + app_shipping_code + '\'' +
+                "app_poi_code='" + app_poi_code + '\'' +
+                ", app_shipping_code='" + app_shipping_code + '\'' +
                 ", type='" + type + '\'' +
                 ", area=" + area +
                 ", min_price=" + min_price +

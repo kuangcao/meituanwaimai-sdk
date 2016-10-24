@@ -45,4 +45,14 @@ public class OrderServiceImplTest extends ServiceTest {
         OrderDetail orderDetail = orderService.getOrderDetail("2312883182", Short.valueOf("1"));
         System.out.println(orderDetail);
     }
+
+    @Test
+    public void confirmOrder() throws MtWmErrorException {
+        orderService.confirm("2395382642");
+    }
+
+    @Test
+    public void cancelOrder() throws MtWmErrorException {
+        orderService.cancel("2395382642", 1202, "测试订单取消");
+    }
 }
