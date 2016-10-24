@@ -22,7 +22,7 @@ public interface PushConsumer {
 
     void completedOrder(OrderDetail orderDetail);
 
-    void cancelOrder(String orderId, String reasonCode, String reason);
+    void cancelOrder(String orderId, Integer reasonCode, String reason);
 
     void refundOrder(String orderId, String notifyType, String reason);
 
