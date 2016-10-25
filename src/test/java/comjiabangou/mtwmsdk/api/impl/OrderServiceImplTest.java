@@ -53,6 +53,16 @@ public class OrderServiceImplTest extends ServiceTest {
 
     @Test
     public void cancelOrder() throws MtWmErrorException {
-        orderService.cancel("2395382642", 1202, "测试订单取消");
+        orderService.cancel("2402189094", 1202, "测试订单取消");
+    }
+
+    @Test
+    public void received() throws MtWmErrorException {
+        orderService.received("2400448019");
+    }
+
+    @Test
+    public void agreeRefund() throws MtWmErrorException {
+        orderService.agreeRefund("2402400522", "订单");
     }
 }

@@ -21,8 +21,8 @@ public class ShopServiceImplTest extends ServiceTest {
     @Test
     public void save() throws MtWmErrorException {
         Shop shop = new Shop();
-        shop.setApp_poi_code("test_poi_02");
-        shop.setName("美团-test店1");
+        shop.setApp_poi_code("test_poi_03");
+        shop.setName("美团-test店2");
         shop.setAddress("朝阳区广顺北大街33号福码大厦B座2楼(望京凯德MALL北)");
         shop.setLongitude(116.467442);
         shop.setLatitude(39.994898);
@@ -31,7 +31,7 @@ public class ShopServiceImplTest extends ServiceTest {
         shop.setStandby_tel("13594011234");
         shop.setShipping_fee(0.0);
         shop.setShipping_time("7:00-9:00,11:30-23:00");
-        shop.setOpen_level(1);
+        shop.setOpen_level(3);
         shop.setIs_online(1);
 //        shop.setInvoice_support(1);
 //        shop.setInvoice_min_price(1.0);

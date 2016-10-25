@@ -18,7 +18,7 @@ public class MtWmErrorException extends Exception {
 
     @Override
     public String toString() {
-        return "BdWmErrorException{" +
+        return "MtWmErrorException{" +
                 "code=" + code +
                 ", message=" + getMessage() +
                 "} " + super.toString();
