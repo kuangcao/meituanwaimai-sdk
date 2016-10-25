@@ -9,19 +9,19 @@ public class ResultMessage implements Serializable {
 
     private String data;
 
-    public ResultMessage(String message)  {
-        this.data = message;
+    public ResultMessage(String data)  {
+        this.data = data;
     }
 
     public static ResultMessage buildOk() {
         return new ResultMessage("ok");
     }
 
-    public String getMessage() {
+    public String getData() {
         return data;
     }
 
-    public void setMessage(String data) {
+    public void setData(String data) {
         this.data = data;
     }
 
