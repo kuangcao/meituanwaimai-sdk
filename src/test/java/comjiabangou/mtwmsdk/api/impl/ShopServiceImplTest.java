@@ -20,23 +20,33 @@ public class ShopServiceImplTest extends ServiceTest {
 
     @Test
     public void save() throws MtWmErrorException {
+        //Body:{"address":"天津市天津市市辖区南开大学","app_poi_code":"39","invoice_support":0,
+        // "is_online":1,"latitude":39.103693,"longitude":117.167299,"name":"DY的美团小店","open_level":1,
+        // "phone":"4008917222","pic_url":"http://i.test.xygcdn.com/z/h/1G_qsT_701x363.jpg",
+        // "pic_url_large":"http://i.test.xygcdn.com/z/h/1G_qsT_701x363.jpg","pre_book":1,
+        // "promotion_info":"","shipping_time":"06:00-10:00,10:00-14:00,14:00-23:45","standby_tel":"13594664819",
+        // "third_tag_name":"北京菜","time_select":1}
         Shop shop = new Shop();
-        shop.setApp_poi_code("test_poi_03");
-        shop.setName("美团-test店2");
-        shop.setAddress("朝阳区广顺北大街33号福码大厦B座2楼(望京凯德MALL北)");
-        shop.setLongitude(116.467442);
-        shop.setLatitude(39.994898);
-        shop.setPic_url("http://p1.meituan.net/crm/__37375183__1582979.jpg");
-        shop.setPhone("010-64736466");
+        shop.setApp_poi_code("39-test-2");
+        shop.setName("DY的美团小店test2");
+        shop.setAddress("天津市天津市市辖区南开大学");
+        shop.setLongitude(117.167299);
+        shop.setLatitude(39.103693);
+        shop.setPic_url("http://i.test.xygcdn.com/z/h/1G_qsT_701x363.jpg");
+        shop.setPic_url_large("http://i.test.xygcdn.com/z/h/1G_qsT_701x363.jpg");
+        shop.setPhone("4008917222");
         shop.setStandby_tel("13594011234");
         shop.setShipping_fee(0.0);
-        shop.setShipping_time("7:00-9:00,11:30-23:00");
-        shop.setOpen_level(3);
+        shop.setShipping_time("06:00-10:00,10:00-14:00,14:00-23:45");
+        shop.setOpen_level(1);
         shop.setIs_online(1);
-//        shop.setInvoice_support(1);
+        shop.setInvoice_support(0);
+        shop.setPromotion_info("");
+        shop.setPre_book(1);
 //        shop.setInvoice_min_price(1.0);
 //        shop.setInvoice_description("满3块开发票");
-//        shop.setThird_tag_name("北京菜");
+        shop.setThird_tag_name("北京菜");
+        shop.setTime_select(1);
         shopService.save(shop);
     }
 
@@ -49,7 +59,7 @@ public class ShopServiceImplTest extends ServiceTest {
     @Test
     public void gets() throws MtWmErrorException {
         List<String> pois = new ArrayList<>();
-        pois.add("test_poi_01");
+        pois.add("39");
         List<Shop> shops = shopService.gets(pois);
         System.out.println(shops);
     }

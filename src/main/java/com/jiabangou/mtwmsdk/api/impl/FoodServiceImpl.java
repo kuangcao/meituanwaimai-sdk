@@ -86,7 +86,9 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
         List<Food> list = new ArrayList<Food>();
         for (Object obj : jsonArray) {
             JSONObject jsonObjectTemp = (JSONObject) obj;
-            jsonObjectTemp.put("skus", JSON.parseArray(jsonObjectTemp.getString("skus")));
+            if(jsonObjectTemp.getString("skus") != null && !jsonObjectTemp.getString("skus").equals("")){
+                jsonObjectTemp.put("skus", JSON.parseArray(jsonObjectTemp.getString("skus")));
+            }
             list.add(TypeUtils.castToJavaBean(jsonObjectTemp, Food.class));
         }
         return list;

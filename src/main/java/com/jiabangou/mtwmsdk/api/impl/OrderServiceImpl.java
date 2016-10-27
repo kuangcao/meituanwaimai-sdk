@@ -87,7 +87,9 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
         Map<String, String> params = new HashMap<String, String>();
         params.put("order_id", orderId);
         JSONObject jsonObject = doGet(ORDER_SUBSIDY, params).getJSONObject(DATA);
-        jsonObject.put("extras", JSON.parseArray(jsonObject.getString("extras")));
+        if(jsonObject.getString("extras") != null && !jsonObject.getString("extras").equals("")){
+            jsonObject.put("extras", JSON.parseArray(jsonObject.getString("extras").replace("{}", "")));
+        }
         return TypeUtils.castToJavaBean(jsonObject, OrderSubsidy.class);
     }
 
@@ -112,8 +114,12 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
         params.put("order_id", orderId);
         params.put("is_mt_logistics", String.valueOf(isMtLogistics));
         JSONObject jsonObject = doGet(ORDER_GET_ORDER_DETAIL, params).getJSONObject(DATA);
-        jsonObject.put("detail", JSON.parseArray(jsonObject.getString("detail")));
-        jsonObject.put("extras", JSON.parseArray(jsonObject.getString("extras")));
+        if(jsonObject.getString("detail") != null && !jsonObject.getString("detail").equals("")){
+            jsonObject.put("detail", JSON.parseArray(jsonObject.getString("detail")));
+        }
+        if(jsonObject.getString("extras") != null && !jsonObject.getString("extras").equals("")){
+            jsonObject.put("extras", JSON.parseArray(jsonObject.getString("extras").replace("{}", "")));
+        }
         return TypeUtils.castToJavaBean(jsonObject, OrderDetail.class);
     }
 

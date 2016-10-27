@@ -42,7 +42,7 @@ public class OrderServiceImplTest extends ServiceTest {
 
     @Test
     public void getOrderDetail() throws MtWmErrorException {
-        OrderDetail orderDetail = orderService.getOrderDetail("2312883182", Short.valueOf("1"));
+        OrderDetail orderDetail = orderService.getOrderDetail("2417673099", Short.valueOf("1"));
         System.out.println(orderDetail);
     }
 
@@ -53,7 +53,7 @@ public class OrderServiceImplTest extends ServiceTest {
 
     @Test
     public void cancelOrder() throws MtWmErrorException {
-        orderService.cancel("2402189094", 1202, "测试订单取消");
+        orderService.cancel("2406202070", 1202, "测试订单取消");
     }
 
     @Test
