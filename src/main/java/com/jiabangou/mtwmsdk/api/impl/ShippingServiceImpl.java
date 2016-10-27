@@ -41,6 +41,7 @@ public class ShippingServiceImpl extends BaseServiceImpl implements ShippingServ
             jsonObjectTemp.put("x", jsonObjectTemp.getString("x").replace(".", ""));
             jsonObjectTemp.put("y", jsonObjectTemp.getString("y").replace(".", ""));
         }
+        jsonObject.put("area", JSONObject.toJSONString(jsonAreaArray));
         doPost(SHIPPING_SAVE, jsonObject);
     }
 
