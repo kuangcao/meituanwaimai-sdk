@@ -38,8 +38,8 @@ public class ShippingServiceImpl extends BaseServiceImpl implements ShippingServ
         JSONArray jsonAreaArray = jsonObject.getJSONArray("area");
         for(Object object : jsonAreaArray){
             JSONObject jsonObjectTemp = (JSONObject)JSON.toJSON(object);
-            jsonObjectTemp.put("x", jsonObjectTemp.getString("x").replace(".", ""));
-            jsonObjectTemp.put("y", jsonObjectTemp.getString("y").replace(".", ""));
+            jsonObjectTemp.put("x", (long)(jsonObjectTemp.getDoubleValue("x") * 1000000));
+            jsonObjectTemp.put("y", (long)(jsonObjectTemp.getDoubleValue("y") * 1000000));
         }
         jsonObject.put("area", JSONObject.toJSONString(jsonAreaArray));
         doPost(SHIPPING_SAVE, jsonObject);
@@ -57,10 +57,8 @@ public class ShippingServiceImpl extends BaseServiceImpl implements ShippingServ
             JSONArray jsonAreaArray = jsonObjectTemp.getJSONArray("area");
             for(Object object : jsonAreaArray){
                 JSONObject jsonAreaObjectTemp = (JSONObject)JSON.toJSON(object);
-                String x = jsonAreaObjectTemp.getString("x");
-                String y = jsonAreaObjectTemp.getString("y");
-                jsonAreaObjectTemp.put("x", x.substring(0,2) + "." + x.substring(2, x.length()));
-                jsonAreaObjectTemp.put("y", y.substring(0,2) + "." + y.substring(2, y.length()));
+                jsonAreaObjectTemp.put("x", jsonAreaObjectTemp.getDoubleValue("x") / 1000000);
+                jsonAreaObjectTemp.put("y", jsonAreaObjectTemp.getDoubleValue("y") / 1000000);
             }
             list.add(TypeUtils.castToJavaBean(jsonObjectTemp, Shipping.class));
         }

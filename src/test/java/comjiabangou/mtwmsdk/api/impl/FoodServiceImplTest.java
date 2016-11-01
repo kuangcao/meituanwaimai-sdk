@@ -24,7 +24,7 @@ public class FoodServiceImplTest extends ServiceTest {
         FoodCategory foodCategory = new FoodCategory();
         foodCategory.setApp_poi_code("test_poi_01");
         foodCategory.setCategory_name("测试分类,新1");
-        foodCategory.setSequence("1");
+        foodCategory.setSequence("-1");
         foodService.updateCategory(foodCategory);
     }
 
@@ -44,7 +44,7 @@ public class FoodServiceImplTest extends ServiceTest {
         Food food = new Food();
         food.setApp_poi_code("test_poi_01");
         food.setApp_food_code("1");
-        food.setName("你好我是滴减肥代理商空间反垄断");
+        food.setName("嘿嘿嘿");
         food.setDescription("这个是测试菜gai");
         food.setPrice(0.1);
         food.setMin_order_count(1);
@@ -54,7 +54,7 @@ public class FoodServiceImplTest extends ServiceTest {
         food.setCategory_name("测试分类,新");
         food.setIs_sold_out(0);
         food.setPicture("DE5C7C2A1700C901F4B26B10616E94A4");
-        food.setSequence(1);
+        food.setSequence(100);
 
         AvailableTimes availableTime = new AvailableTimes();
         availableTime.setMonday("6:00-23:00");

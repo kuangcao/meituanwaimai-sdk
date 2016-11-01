@@ -11,31 +11,31 @@ import java.io.Serializable;
 @JSONType
 public class Region implements Serializable {
 
-    private String x;  //latitude
+    private Double x;  //latitude
 
-    private String y; //longitude
+    private Double y; //longitude
 
-    public String getX() {
+    public Double getX() {
         return x;
     }
 
-    public void setX(String x) {
+    public void setX(Double x) {
         this.x = x;
     }
 
-    public String getY() {
+    public Double getY() {
         return y;
     }
 
-    public void setY(String y) {
+    public void setY(Double y) {
         this.y = y;
     }
 
     @Override
     public String toString() {
         return "Region{" +
-                "x='" + x + '\'' +
-                ", y='" + y + '\'' +
+                "x=" + x +
+                ", y=" + y +
                 '}';
     }
 }
