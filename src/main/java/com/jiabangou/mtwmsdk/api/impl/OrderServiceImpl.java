@@ -120,6 +120,16 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
         if(jsonObject.getString("extras") != null && !jsonObject.getString("extras").equals("")){
             jsonObject.put("extras", JSON.parseArray(jsonObject.getString("extras").replace("{}", "")));
         }
+        if(jsonObject.getString("poi_receive_detail") != null && !jsonObject.getString("poi_receive_detail").equals("")){
+            JSONObject jsonObjectReceiveDetail = JSON.parseObject(jsonObject.getString("poi_receive_detail"));
+            if(jsonObjectReceiveDetail.getString("actOrderChargeByMt") != null && !jsonObjectReceiveDetail.getString("actOrderChargeByMt").equals("")) {
+                jsonObjectReceiveDetail.put("actOrderChargeByMt", JSON.parseArray(jsonObjectReceiveDetail.getString("actOrderChargeByMt").replace("{}", "")));
+            }
+            if(jsonObjectReceiveDetail.getString("actOrderChargeByPoi") != null && !jsonObjectReceiveDetail.getString("actOrderChargeByPoi").equals("")) {
+                jsonObjectReceiveDetail.put("actOrderChargeByPoi", JSON.parseArray(jsonObjectReceiveDetail.getString("actOrderChargeByPoi").replace("{}", "")));
+            }
+            jsonObject.put("poi_receive_detail", jsonObjectReceiveDetail);
+        }
         return TypeUtils.castToJavaBean(jsonObject, OrderDetail.class);
     }
 
