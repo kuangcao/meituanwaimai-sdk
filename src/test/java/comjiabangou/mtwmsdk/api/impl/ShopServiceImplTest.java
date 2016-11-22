@@ -27,7 +27,7 @@ public class ShopServiceImplTest extends ServiceTest {
         // "promotion_info":"","shipping_time":"06:00-10:00,10:00-14:00,14:00-23:45","standby_tel":"13594664819",
         // "third_tag_name":"北京菜","time_select":1}
         Shop shop = new Shop();
-        shop.setApp_poi_code("39-test-2");
+        shop.setApp_poi_code("27");
         shop.setName("DY的美团小店test2");
         shop.setAddress("天津市天津市市辖区南开大学");
         shop.setLongitude(117.167299);
@@ -66,12 +66,12 @@ public class ShopServiceImplTest extends ServiceTest {
 
     @Test
     public void open() throws MtWmErrorException {
-        shopService.open("test_poi_01");
+        shopService.open("39");
     }
 
     @Test
     public void close() throws MtWmErrorException {
-        shopService.close("test_poi_01");
+        shopService.close("39");
     }
 
     @Test

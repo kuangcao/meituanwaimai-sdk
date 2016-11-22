@@ -30,12 +30,12 @@ public class FoodServiceImplTest extends ServiceTest {
 
     @Test
     public void deleteCategory() throws MtWmErrorException {
-        foodService.deleteCategory("test_poi_01", "测试分类,新");
+        foodService.deleteCategory("39", "王磊测试分类");
     }
 
     @Test
     public void catList() throws MtWmErrorException {
-        List<FoodCategoryDetail> foodCategories = foodService.list("test_poi_01");
+        List<FoodCategoryDetail> foodCategories = foodService.list("23");
         System.out.println(foodCategories);
     }
 
@@ -106,6 +106,15 @@ public class FoodServiceImplTest extends ServiceTest {
         JSONObject jsonObject = JSON.parseObject(json);
         jsonObject.put("skus", JSON.parseArray(jsonObject.getString("skus")));
         TypeUtils.castToJavaBean(jsonObject, Food.class);
+    }
+
+    @Test
+    public void deleteStoreDish() throws MtWmErrorException {
+        //门店id: 23, 24, 25, 26
+        List<FoodCategoryDetail> foodCategories = foodService.list("26");
+        for(FoodCategoryDetail categoryDetail: foodCategories){
+            foodService.deleteCategory("26", categoryDetail.getName());
+        }
     }
 
 }
