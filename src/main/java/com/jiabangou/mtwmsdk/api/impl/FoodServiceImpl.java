@@ -11,6 +11,7 @@ import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
 import com.jiabangou.mtwmsdk.model.Food;
 import com.jiabangou.mtwmsdk.model.FoodCategory;
 import com.jiabangou.mtwmsdk.model.FoodCategoryDetail;
+import com.jiabangou.mtwmsdk.model.FoodSkuStock;
 import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
@@ -32,6 +33,7 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
     private static final String FOOD_INITDATA = "/food/initdata";
     private static final String FOOD_DELETE = "/food/delete";
     private static final String FOOD_LIST = "/food/list";
+    private static final String FOOD_UPDATE_STOCK = "/food/sku/stock";
 
     public FoodServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient, HttpHost httpProxy,
                            LogListener listener,  boolean isTest) {
@@ -92,6 +94,14 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
             list.add(TypeUtils.castToJavaBean(jsonObjectTemp, Food.class));
         }
         return list;
+    }
+
+    @Override
+    public void updateSkuStock(String appPoiCode, List<FoodSkuStock> foodSkuStocks) throws MtWmErrorException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("app_poi_code", appPoiCode);
+        params.put("food_data", JSONArray.toJSONString(foodSkuStocks));
+        doPost(FOOD_UPDATE_STOCK, params);
     }
 
 }

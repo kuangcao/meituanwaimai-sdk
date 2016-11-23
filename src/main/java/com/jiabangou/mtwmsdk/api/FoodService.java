@@ -4,6 +4,7 @@ import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
 import com.jiabangou.mtwmsdk.model.Food;
 import com.jiabangou.mtwmsdk.model.FoodCategory;
 import com.jiabangou.mtwmsdk.model.FoodCategoryDetail;
+import com.jiabangou.mtwmsdk.model.FoodSkuStock;
 
 import java.util.List;
 
@@ -93,6 +94,14 @@ public interface FoodService {
      * @throws MtWmErrorException
      */
     List<Food> gets(String appPoiCode) throws MtWmErrorException;
+
+    /**
+     *  修改菜品sku库存
+     * @param appPoiCode 门店id
+     * @param foodSkuStocks 要修改的菜品库存对象
+     * @throws MtWmErrorException
+     */
+    void updateSkuStock(String appPoiCode, List<FoodSkuStock> foodSkuStocks) throws MtWmErrorException;
 
 
 }
