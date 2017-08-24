@@ -32,6 +32,7 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
     private static final String FOOD_SAVE = "/food/save";
     private static final String FOOD_INITDATA = "/food/initdata";
     private static final String FOOD_DELETE = "/food/delete";
+    private static final String FOOD_SKU_DELETE = "/food/sku/delete";
     private static final String FOOD_LIST = "/food/list";
     private static final String FOOD_UPDATE_STOCK = "/food/sku/stock";
 
@@ -78,6 +79,16 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
         params.put("app_poi_code", appPoiCode);
         params.put("app_food_code", appFoodCode);
         doPost(FOOD_DELETE, params);
+    }
+
+    @Override
+    public void deleteSku(String appPoiCode, String appFoodCode, String skuId) throws MtWmErrorException {
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("app_poi_code", appPoiCode);
+        params.put("app_food_code", appFoodCode);
+        params.put("sku_id", skuId);
+        doPost(FOOD_SKU_DELETE, params);
     }
 
     public List<Food> gets(String appPoiCode) throws MtWmErrorException {
