@@ -30,6 +30,7 @@
         </developer>
     </developers>
 
+
     <scm>
         <connection>scm:git:https://github.com/kuangcao/meituanwaimai-sdk.git</connection>
         <developerConnection>scm:git:git@github.com:kuangcao/meituanwaimai-sdk.git</developerConnection>
@@ -112,20 +113,38 @@
     <!--</repository>-->
     <!--</distributionManagement>-->
 
+
     <distributionManagement>
         <snapshotRepository>
-            <id>jbg</id>
+            <id>meicanyun-snapshot</id>
             <name>meicanyun Snapshot</name>
             <url>http://maven.chongkouwei.com/nexus/content/repositories/snapshots/</url>
             <uniqueVersion>true</uniqueVersion>
         </snapshotRepository>
 
         <repository>
-            <id>jbg</id>
+            <id>meicanyun-release</id>
             <name>meicanyun Release</name>
             <url>http://maven.chongkouwei.com/nexus/content/repositories/releases/</url>
         </repository>
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>meicanyun Nexus</name>
+            <url>http://maven.chongkouwei.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>meicanyun Nexus</name>
+            <url>http://maven.chongkouwei.com/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
 
     <profiles>
         <profile>
