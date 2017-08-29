@@ -35,7 +35,7 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
     private static final String FOOD_SKU_DELETE = "/food/sku/delete";
     private static final String FOOD_LIST = "/food/list";
     private static final String FOOD_UPDATE_STOCK = "/food/sku/stock";
-    private static final String FOOD_SKU_SELLSTATUS = "food/sku/sellStatus";
+    private static final String FOOD_SKU_SELLSTATUS = "/food/sku/sellStatus";
 
     public FoodServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient, HttpHost httpProxy,
                            LogListener listener,  boolean isTest) {
