@@ -34,6 +34,7 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
     private static final String FOOD_DELETE = "/food/delete";
     private static final String FOOD_LIST = "/food/list";
     private static final String FOOD_UPDATE_STOCK = "/food/sku/stock";
+    private static final String FOOD_SKU_SELLSTATUS = "food/sku/sellStatus";
 
     public FoodServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient, HttpHost httpProxy,
                            LogListener listener,  boolean isTest) {
@@ -102,6 +103,15 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
         params.put("app_poi_code", appPoiCode);
         params.put("food_data", JSONArray.toJSONString(foodSkuStocks));
         doPost(FOOD_UPDATE_STOCK, params);
+    }
+
+    @Override
+    public void skuSellStatus(String appPoiCode, List<FoodSkuStock> foodSkuStocks, int sellStatus) throws MtWmErrorException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("app_poi_code", appPoiCode);
+        params.put("food_data", JSONArray.toJSONString(foodSkuStocks));
+        params.put("sell_status",sellStatus);
+        doPost(FOOD_SKU_SELLSTATUS, params);
     }
 
 }

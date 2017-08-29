@@ -103,5 +103,9 @@ public interface FoodService {
      */
     void updateSkuStock(String appPoiCode, List<FoodSkuStock> foodSkuStocks) throws MtWmErrorException;
 
-
+    /**
+     * 批量更新售卖状态
+     * sellStatus	int	是	0.上架 1.下架
+     */
+    void skuSellStatus(String appPoiCode, List<FoodSkuStock> foodSkuStocks,int sellStatus) throws MtWmErrorException;
 }
