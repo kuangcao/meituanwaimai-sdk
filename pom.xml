@@ -6,7 +6,7 @@
 
     <groupId>com.jiabangou</groupId>
     <artifactId>meituanwaimai-sdk</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.4-SNAPSHOT</version>
 
     <name>Meituan Waimai SDK</name>
     <description>美团外卖 SDK</description>
