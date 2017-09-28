@@ -110,5 +110,5 @@ public interface FoodService {
      */
     void updateSkuStock(String appPoiCode, List<FoodSkuStock> foodSkuStocks) throws MtWmErrorException;
 
-
+    void skuSellStatus(String var1, List<FoodSkuStock> var2, int var3) throws MtWmErrorException;
 }
