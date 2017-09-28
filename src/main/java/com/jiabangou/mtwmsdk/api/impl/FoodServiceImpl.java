@@ -115,14 +115,7 @@ public class FoodServiceImpl extends BaseServiceImpl implements FoodService {
         params.put("food_data", JSONArray.toJSONString(foodSkuStocks));
         doPost(FOOD_UPDATE_STOCK, params);
     }
-    @Override
-    public void skuSellStatus(String appPoiCode, List<FoodSkuStock> foodSkuStocks, int sellStatus) throws MtWmErrorException {
-        Map<String, Object> params = new HashMap();
-        params.put("app_poi_code", appPoiCode);
-        params.put("food_data", JSONArray.toJSONString(foodSkuStocks));
-        params.put("sell_status", sellStatus);
-        this.doPost("/food/sku/sellStatus", params);
-    }
+
 
     @Override
     public void skuSellStatus(String appPoiCode, List<FoodSkuStock> foodSkuStocks, int sellStatus) throws MtWmErrorException {
