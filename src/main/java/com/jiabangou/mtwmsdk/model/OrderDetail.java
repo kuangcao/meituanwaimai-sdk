@@ -44,6 +44,8 @@ public class OrderDetail implements Serializable {
 
     private String invoice_title; //发票抬头
 
+    private String taxpayer_id; //纳税人识别号，该信息默认不推送，如有需求可在开发者中心订阅
+
     private Long ctime; //创建时间
 
     private Long utime; //更新时间
@@ -246,6 +248,14 @@ public class OrderDetail implements Serializable {
 
     public void setInvoice_title(String invoice_title) {
         this.invoice_title = invoice_title;
+    }
+
+    public String getTaxpayer_id() {
+        return taxpayer_id;
+    }
+
+    public void setTaxpayer_id(String taxpayer_id) {
+        this.taxpayer_id = taxpayer_id;
     }
 
     public Long getCtime() {
