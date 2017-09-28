@@ -6,7 +6,7 @@
 
     <groupId>com.jiabangou</groupId>
     <artifactId>meituanwaimai-sdk</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.6-SNAPSHOT</version>
 
     <name>Meituan Waimai SDK</name>
     <description>美团外卖 SDK</description>
@@ -21,12 +21,12 @@
 
     <developers>
         <developer>
-            <name>Hu Wei</name>
-            <email>hu77wei@gmail.com</email>
+            <name>yuxuan1698</name>
+            <email>yuxuan1698@qq.com</email>
         </developer>
         <developer>
-            <name>Wang Lei</name>
-            <email>wangleimvp110@126.com</email>
+            <name>yuxuan1698</name>
+            <email>yuxuan1698@qq.com</email>
         </developer>
     </developers>
 
