@@ -85,7 +85,14 @@ public interface FoodService {
      * @throws MtWmErrorException
      */
     void delete(String appPoiCode, String appFoodCode) throws MtWmErrorException;
-
+    /**
+     * 删除菜品sku
+     * http://developer.waimai.meituan.com/doc/show#4.5
+     * @param appPoiCode APP方门店id
+     * @param appFoodCode APP方菜品ID, 最大长度128 不同门店可以重复，同一门店内不能重复
+     * @throws MtWmErrorException
+     */
+    void deleteSku(String appPoiCode, String appFoodCode,String skuId) throws MtWmErrorException;
     /**
      * 查询门店菜品列表
      * http://developer.waimai.meituan.com/doc/show#4.6
