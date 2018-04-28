@@ -12,6 +12,7 @@ import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -206,7 +207,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderRealPhoneNumber batchPullPhoneNumber(Long appPoiCode, Integer offset, Integer limit) throws MtWmErrorException {
+    public List<OrderRealPhoneNumber> batchPullPhoneNumber(Long appPoiCode, Integer offset, Integer limit) throws MtWmErrorException {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("app_poi_code", appPoiCode);
@@ -215,6 +216,6 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 
         JSONObject jsonObject =  doPost(ORDER_BATCH_PULL_PHONE_NUMBER, params);
 
-        return get(jsonObject,DATA,OrderRealPhoneNumber.class);
+        return getList(jsonObject,DATA,OrderRealPhoneNumber.class);
     }
 }

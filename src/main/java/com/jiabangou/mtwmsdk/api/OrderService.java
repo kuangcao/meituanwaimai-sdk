@@ -3,6 +3,8 @@ package com.jiabangou.mtwmsdk.api;
 import com.jiabangou.mtwmsdk.exception.MtWmErrorException;
 import com.jiabangou.mtwmsdk.model.*;
 
+import java.util.List;
+
 /**
  * Created by wanglei   on 16-9-29.
  */
@@ -44,6 +46,6 @@ public interface OrderService {
 
     void arrived(String orderId) throws MtWmErrorException;
 
-    OrderRealPhoneNumber batchPullPhoneNumber (Long appPoiCode,Integer offset,Integer limit) throws MtWmErrorException;
+    List<OrderRealPhoneNumber> batchPullPhoneNumber (Long appPoiCode, Integer offset, Integer limit) throws MtWmErrorException;
 
 }
