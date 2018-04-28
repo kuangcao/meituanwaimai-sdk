@@ -14,6 +14,7 @@ public interface PushConsumer {
     String CANCEL_ORDER = "cancel_order";
     String REFUND_ORDER = "refund_order";
     String LOGISTICS_STATUS = "logistics_status";
+    String PHONE_NUMBER = "phone_number";
 
 
     void createOrder(OrderDetail orderDetail);
@@ -27,4 +28,6 @@ public interface PushConsumer {
     void refundOrder(String orderId, String notifyType, String reason);
 
     void deliveryStatus(String orderId, Short statusCode, String time, String dispatcherName, String dispatcherMobile);
+
+    void phoneNumber();
 }

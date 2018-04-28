@@ -52,6 +52,11 @@ public class ServiceTest {
             public void deliveryStatus(String orderId, Short statusCode, String time, String dispatcherName, String dispatcherMobile) {
 
             }
+
+            @Override
+            public void phoneNumber() {
+
+            }
         });
         mtWmClient.setLogListener((cmd, method, isSuccess, request, response) -> {
             System.out.println("cmd:"+cmd);

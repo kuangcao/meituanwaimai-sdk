@@ -44,4 +44,6 @@ public interface OrderService {
 
     void arrived(String orderId) throws MtWmErrorException;
 
+    OrderRealPhoneNumber batchPullPhoneNumber (Long appPoiCode,Integer offset,Integer limit) throws MtWmErrorException;
+
 }

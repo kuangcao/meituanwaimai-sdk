@@ -37,6 +37,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
     private static final String ORDER_COMMENT_ADD_REPLY = "/order/comment/add_reply";
     private static final String ORDER_DELIVERING = "/order/delivering";
     private static final String ORDER_ARRIVED = "/order/arrived";
+    private static final String ORDER_BATCH_PULL_PHONE_NUMBER = "/order/batchPullPhoneNumber";
 
     public OrderServiceImpl(MtWmConfigStorage mtWmConfigStorage, CloseableHttpClient httpClient, HttpHost httpProxy,
                             LogListener listener, boolean isTest) {
@@ -202,5 +203,18 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
         Map<String, String> params = new HashMap<String, String>();
         params.put("order_id", orderId);
         doGet(ORDER_ARRIVED, params);
+    }
+
+    @Override
+    public OrderRealPhoneNumber batchPullPhoneNumber(Long appPoiCode, Integer offset, Integer limit) throws MtWmErrorException {
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("app_poi_code", appPoiCode);
+        params.put("offset", offset);
+        params.put("limit", limit);
+
+        JSONObject jsonObject =  doPost(ORDER_BATCH_PULL_PHONE_NUMBER, params);
+
+        return get(jsonObject,DATA,OrderRealPhoneNumber.class);
     }
 }

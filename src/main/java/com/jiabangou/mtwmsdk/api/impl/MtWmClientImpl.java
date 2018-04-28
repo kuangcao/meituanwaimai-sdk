@@ -144,6 +144,9 @@ public class MtWmClientImpl implements MtWmClient {
                 this.pushConsumer.deliveryStatus(orderId, statusCode, time, dispatcherName, dispatcherMobile);
                 httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
 
+            }else if(PushConsumer.PHONE_NUMBER.equals(pushAction)){
+                this.pushConsumer.phoneNumber();
+                httpMethod = BaseServiceImpl.HTTP_METHOD_POST;
             }
         } catch (MtWmErrorException e) {
             logging(pushAction, httpMethod, false, JSON.toJSONString(params), e.getMessage());
